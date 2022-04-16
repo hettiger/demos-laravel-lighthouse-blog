@@ -1,5 +1,4 @@
-"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
 "Indicates what fields are available at the top level of a query operation."
 type Query {
@@ -54,13 +53,13 @@ type User {
     posts: [Post!]! @hasMany
 
     "When the email was verified."
-    email_verified_at: DateTime
+    email_verified_at: DateTimeTz
 
     "When the account was created."
-    created_at: DateTime!
+    created_at: DateTimeTz!
 
     "When the account was last updated."
-    updated_at: DateTime!
+    updated_at: DateTimeTz!
 }
 
 type Post {
@@ -68,6 +67,6 @@ type Post {
     title: String!
     body: String!
     user: User! @belongsTo
-    created_at: DateTime!
-    updated_at: DateTime!
+    created_at: DateTimeTz!
+    updated_at: DateTimeTz!
 }

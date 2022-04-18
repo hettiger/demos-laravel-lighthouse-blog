@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendURL: 'https://laravel-lighthouse-blog-backend.test/graphql'
+  backendURL: 'http://laravel-lighthouse-blog-backend.test/graphql'
 };
 
 /*

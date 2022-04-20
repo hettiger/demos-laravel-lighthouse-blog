@@ -1,6 +1,9 @@
-<nav>
-  <a [routerLink]="['/posts']">Posts</a>
-</nav>
+<header>
+  <nav>
+    <a [routerLink]="['/posts']">Posts</a>
+  </nav>
+  <p *ngIf="isLoading">Loading…</p>
+</header>
 <main>
   <router-outlet></router-outlet>
 </main>

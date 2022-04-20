@@ -232,11 +232,44 @@ export type UserPaginator = {
   paginatorInfo: PaginatorInfo;
 };
 
+export type PostQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } } | null };
+
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostPaginator', data: Array<{ __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } }> } | null };
 
+export const PostDocument = gql`
+    query Post($id: ID!) {
+  post(id: $id) {
+    id
+    title
+    body
+    user {
+      id
+      name
+    }
+    created_at
+    updated_at
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class PostGQL extends Apollo.Query<PostQuery, PostQueryVariables> {
+    document = PostDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const PostsDocument = gql`
     query Posts {
   posts(first: 5) {

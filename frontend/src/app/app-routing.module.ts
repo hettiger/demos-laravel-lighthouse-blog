@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,14 @@ const routes: Routes = [
   {
     path: 'posts',
     loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found'
   }
 ];
 

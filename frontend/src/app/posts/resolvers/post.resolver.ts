@@ -4,7 +4,7 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { mergeMap, NEVER, Observable, of, take } from 'rxjs';
+import { EMPTY, mergeMap, Observable, of, take } from 'rxjs';
 import { Post } from '../entities';
 import { PostsService } from '../services/posts.service';
 
@@ -30,7 +30,7 @@ export class PostResolver implements Resolve<Post> {
 
         this.router.navigate(['/not-found']);
 
-        return NEVER;
+        return EMPTY;
       })
     );
   }

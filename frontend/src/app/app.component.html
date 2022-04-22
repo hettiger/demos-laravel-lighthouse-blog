@@ -1,8 +1,13 @@
 <header>
-  <nav>
-    <a [routerLink]="['/posts']">Posts</a>
-  </nav>
-  <p *ngIf="isLoading">Loading…</p>
+  <mat-toolbar>
+    <nav app-main-nav [links]="[
+      { label: 'Posts', icon: 'feed', routerLink: ['/posts'] }
+    ]"></nav>
+  </mat-toolbar>
+  <mat-progress-bar
+    mode="indeterminate"
+    [style.visibility]="isLoading ? 'visible' : 'hidden'"
+  ></mat-progress-bar>
 </header>
 <main>
   <router-outlet></router-outlet>

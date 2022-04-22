@@ -1,0 +1,14 @@
+<span>Blog</span>
+<a
+  class="main-nav__link"
+  *ngFor="let link of links"
+  mat-button
+  routerLinkActive="active"
+  #routerLinkActive="routerLinkActive"
+  [routerLinkActiveOptions]="{ exact: true }"
+  [color]="routerLinkActive.isActive ? 'primary' : undefined"
+  [routerLink]="link.routerLink"
+>
+  <mat-icon>{{ link.icon }}</mat-icon>
+  {{ link.label }}
+</a>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, Observable, pluck } from 'rxjs';
+import { Observable, pluck } from 'rxjs';
 import { Post } from '../../entities';
 
 @Component({
@@ -10,12 +10,11 @@ import { Post } from '../../entities';
 })
 export class PostComponent implements OnInit {
 
-  post$: Observable<Post> = EMPTY;
+  post$: Observable<Post>;
 
-  constructor(private activatedRoute: ActivatedRoute) { }
-
-  ngOnInit(): void {
-    this.post$ = this.activatedRoute.data.pipe(pluck('post'));
+  constructor(activatedRoute: ActivatedRoute) {
+    this.post$ = activatedRoute.data.pipe(pluck('post'));
   }
 
+  ngOnInit(): void { }
 }

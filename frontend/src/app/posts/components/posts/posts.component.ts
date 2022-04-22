@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsService } from '../../services/posts.service';
-import { Observable, of } from 'rxjs';
+import { Observable, pluck } from 'rxjs';
 import { Post } from '../../entities';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -10,11 +10,11 @@ import { Post } from '../../entities';
 })
 export class PostsComponent implements OnInit {
 
-  posts$: Observable<Post[]> = of([]);
+  posts$: Observable<Post[]>;
 
-  constructor(private postsService: PostsService) { }
-
-  ngOnInit(): void {
-    this.posts$ = this.postsService.posts();
+  constructor(activatedRoute: ActivatedRoute) {
+    this.posts$ = activatedRoute.data.pipe(pluck('posts'));
   }
+
+  ngOnInit(): void { }
 }

@@ -10,12 +10,14 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: PostsComponent,
-    resolve: { posts: PostsResolver }
+    resolve: { posts: PostsResolver },
+    data: { animation: 'PostsPage' }
   },
   {
     path: ':id',
     component: PostComponent,
-    resolve: { post: PostResolver }
+    resolve: { post: PostResolver },
+    data: { animation: 'PostPage' }
   }
 ];
 

@@ -1,11 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
+import {
+  ChildrenOutletContexts,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router
+} from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { fadeAnimation } from './animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: [fadeAnimation],
 })
 export class AppComponent implements OnInit, OnDestroy {
 
@@ -13,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private contexts: ChildrenOutletContexts) { }
 
   ngOnInit(): void {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe(event => {
@@ -35,5 +44,9 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.complete();
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
   }
 }

@@ -4,10 +4,7 @@
       { label: 'Posts', icon: 'feed', routerLink: ['/posts'] }
     ]"></nav>
   </mat-toolbar>
-  <mat-progress-bar
-    mode="indeterminate"
-    [style.visibility]="isLoading ? 'visible' : 'hidden'"
-  ></mat-progress-bar>
+  <mat-progress-bar *ngIf="isLoading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
 </header>
 <main>
   <router-outlet></router-outlet>

@@ -7,7 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate:graphql": "get-graphql-schema $(jq -r '.extensions.endpoints.backend.url' .graphqlconfig) > schema.graphql && graphql-codegen --config ./codegen.yaml"
+    "generate:graphql": "get-graphql-schema $(jq -r '.extensions.endpoints.backend.url' .graphqlconfig) > schema.graphql && graphql-codegen --config ./codegen.yaml",
+    "e2e": "ng e2e",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "private": true,
   "dependencies": {
@@ -32,6 +35,7 @@
     "@angular-devkit/build-angular": "~13.2.3",
     "@angular/cli": "~13.2.3",
     "@angular/compiler-cli": "~13.2.0",
+    "@cypress/schematic": "^1.6.0",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.4.8",
     "@graphql-codegen/typescript-apollo-angular": "^3.4.7",
@@ -45,6 +49,7 @@
     "karma-coverage": "~2.1.0",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
-    "typescript": "~4.5.2"
+    "typescript": "~4.5.2",
+    "cypress": "latest"
   }
 }

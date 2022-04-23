@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  ChildrenOutletContexts,
   NavigationCancel,
   NavigationEnd,
   NavigationError,
@@ -39,7 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   destroy$ = new Subject();
 
-  constructor(private router: Router, private contexts: ChildrenOutletContexts) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.router.events.pipe(takeUntil(this.destroy$)).subscribe(event => {

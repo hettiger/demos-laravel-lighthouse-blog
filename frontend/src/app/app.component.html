@@ -6,6 +6,6 @@
   </mat-toolbar>
   <mat-progress-bar *ngIf="isLoading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
 </header>
-<main [@routeAnimations]="getRouteAnimationData()">
-  <router-outlet></router-outlet>
+<main [@routeAnimations]="outlet.isActivated ? outlet.activatedRoute : ''">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>

@@ -14,14 +14,10 @@ export class PostsPO {
     return this.page.contains('Fake Post Title (Fake User Name, Jan 1, 1970)');
   }
 
-  visit() {
-    cy.visit('/posts');
-    this.shouldBeActive();
-  }
-
-  shouldBeActive() {
-    cy.url().should('match', /\/posts$/);
-    this.page.should('be.visible');
+  constructor(interceptRequests = true) {
+    if (interceptRequests) {
+      this.interceptRequests();
+    }
   }
 
   interceptRequests() {
@@ -31,5 +27,15 @@ export class PostsPO {
         req.reply({ fixture: 'posts.json' });
       }
     }).as('GraphQL');
+  }
+
+  visit() {
+    cy.visit('/posts');
+    this.shouldBeActive();
+  }
+
+  shouldBeActive() {
+    cy.url().should('match', /\/posts$/);
+    this.page.should('be.visible');
   }
 }

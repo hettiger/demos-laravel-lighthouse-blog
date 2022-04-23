@@ -5,7 +5,6 @@ describe('Post Page', () => {
 
   beforeEach(() => {
     post = new PostPO;
-    post.interceptRequests();
   });
 
   it("displays the post's data", () => {

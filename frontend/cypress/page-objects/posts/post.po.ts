@@ -22,14 +22,10 @@ export class PostPO {
     return this.page.contains('Jan 1, 1970');
   }
 
-  visit() {
-    cy.visit('/posts/1');
-    this.shouldBeActive();
-  }
-
-  shouldBeActive() {
-    cy.url().should('match', /\/posts\/1$/);
-    this.page.should('be.visible');
+  constructor(interceptRequests = true) {
+    if (interceptRequests) {
+      this.interceptRequests();
+    }
   }
 
   interceptRequests() {
@@ -39,5 +35,15 @@ export class PostPO {
         req.reply({ fixture: 'post.json' });
       }
     }).as('GraphQL');
+  }
+
+  visit() {
+    cy.visit('/posts/1');
+    this.shouldBeActive();
+  }
+
+  shouldBeActive() {
+    cy.url().should('match', /\/posts\/1$/);
+    this.page.should('be.visible');
   }
 }

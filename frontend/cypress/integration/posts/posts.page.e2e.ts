@@ -7,9 +7,7 @@ describe('Posts Page', () => {
 
   beforeEach(() => {
     posts = new PostsPO;
-    posts.interceptRequests();
     post = new PostPO;
-    post.interceptRequests();
   });
 
   it('displays a title', () => {

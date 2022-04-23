@@ -1,11 +1,24 @@
 @use "variables" as *;
 
+@mixin padding($padding) {
+  @if $padding == true {
+    padding-top: 2rem;
+  }
+}
+
 @mixin container($padding: false) {
+  box-sizing: border-box;
   display: block;
   max-width: $max-content-width;
   width: 100%;
   margin: 0 auto;
-  @if $padding == true {
-    padding-top: 2rem;
+
+  @include padding($padding);
+
+  @media (max-width: $max-content-width + 2*16px) {
+    margin: 0;
+    padding: 0 16px;
+
+    @include padding($padding);
   }
 }

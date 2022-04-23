@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostsComponent } from './posts.component';
 
@@ -10,7 +11,7 @@ describe('PostsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ PostsComponent ],
-      imports: [ ApolloTestingModule ]
+      imports: [ ApolloTestingModule, RouterTestingModule ],
     })
     .compileComponents();
   });

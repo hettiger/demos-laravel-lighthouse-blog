@@ -1,3 +1,5 @@
+import { aliasQuery, hasOperationName } from '../../utils/graphql-test-utils';
+
 export class PostsPO {
 
   get page() {
@@ -8,12 +10,8 @@ export class PostsPO {
     return cy.contains('The Posts');
   }
 
-  get postsList() {
-    return this.page.find('ul').first();
-  }
-
   get postLink() {
-    return this.postsList.find('a').first();
+    return this.page.contains('Fake Post Title (Fake User Name, Jan 1, 1970)');
   }
 
   visit() {
@@ -24,5 +22,14 @@ export class PostsPO {
   shouldBeActive() {
     cy.url().should('match', /\/posts$/);
     this.page.should('be.visible');
+  }
+
+  interceptRequests() {
+    cy.intercept('POST', 'http://laravel-lighthouse-blog-backend.test/graphql', req => {
+      if (hasOperationName(req, 'Posts')) {
+        aliasQuery(req, 'Posts');
+        req.reply({ fixture: 'posts.json' });
+      }
+    }).as('GraphQL');
   }
 }

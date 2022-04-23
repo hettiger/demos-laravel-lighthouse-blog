@@ -1,0 +1,17 @@
+{
+  "data": {
+    "post": {
+      "id": "1",
+      "title": "Fake Post Title",
+      "body": "Fake Post Body",
+      "user": {
+        "id": "1",
+        "name": "Fake User Name",
+        "__typename": "User"
+      },
+      "created_at": "1970-01-01T00:00:00+00:00",
+      "updated_at": "1970-01-01T00:00:00+00:00",
+      "__typename": "Post"
+    }
+  }
+}

@@ -7,17 +7,14 @@ describe('Posts Page', () => {
 
   beforeEach(() => {
     posts = new PostsPO;
+    posts.interceptRequests();
     post = new PostPO;
+    post.interceptRequests();
   });
 
   it('displays a title', () => {
     posts.visit();
     posts.title.should('be.visible');
-  });
-
-  it('displays a list of posts', () => {
-    posts.visit();
-    posts.postsList.should('be.visible');
   });
 
   it('links to individual posts', () => {

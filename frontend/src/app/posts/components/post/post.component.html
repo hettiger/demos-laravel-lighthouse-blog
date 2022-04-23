@@ -1,2 +1,7 @@
-<h1 *ngIf="post$ | async as post">{{ post.title }}</h1>
-<p>post works!</p>
+<ng-container *ngIf="post$ | async as post">
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.body }}</p>
+  <p>
+    <small>{{ post.created_at | date }}, {{ post.user.name }}</small>
+  </p>
+</ng-container>

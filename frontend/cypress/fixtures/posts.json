@@ -1,0 +1,74 @@
+{
+  "data": {
+    "posts": {
+      "data": [
+        {
+          "id": "1",
+          "title": "Fake Post Title",
+          "body": "Fake Post Body",
+          "user": {
+            "id": "1",
+            "name": "Fake User Name",
+            "__typename": "User"
+          },
+          "created_at": "1970-01-01T00:00:00+00:00",
+          "updated_at": "1970-01-01T00:00:00+00:00",
+          "__typename": "Post"
+        },
+        {
+          "id": "34",
+          "title": "Occaecati quo consequatur modi",
+          "body": "Sed porro sunt consequatur veniam necessitatibus nihil neque. Eos soluta sed iure suscipit et. Blanditiis quidem dolorem est. Consectetur dolorem deleniti qui ipsa vel voluptatem.",
+          "user": {
+            "id": "34",
+            "name": "Lorena Rolfson",
+            "__typename": "User"
+          },
+          "created_at": "2022-04-14T22:32:40+00:00",
+          "updated_at": "2022-04-16T09:40:46+00:00",
+          "__typename": "Post"
+        },
+        {
+          "id": "18",
+          "title": "Voluptates dolore est dolor",
+          "body": "Eum omnis velit velit quaerat. Dicta incidunt autem et consequatur in ab repellendus eius. Ratione aut consectetur voluptatem optio vel. Harum cumque sit voluptatem qui possimus.",
+          "user": {
+            "id": "18",
+            "name": "Imelda Harber",
+            "__typename": "User"
+          },
+          "created_at": "2022-04-14T21:35:46+00:00",
+          "updated_at": "2022-04-16T09:40:46+00:00",
+          "__typename": "Post"
+        },
+        {
+          "id": "13",
+          "title": "Dolorum sit neque et",
+          "body": "Molestias vel ipsum neque qui. Et non praesentium saepe. Porro voluptatem perspiciatis neque. Autem enim et repudiandae est sapiente velit.",
+          "user": {
+            "id": "13",
+            "name": "Lucienne Bayer",
+            "__typename": "User"
+          },
+          "created_at": "2022-04-14T14:43:41+00:00",
+          "updated_at": "2022-04-16T09:40:46+00:00",
+          "__typename": "Post"
+        },
+        {
+          "id": "5",
+          "title": "Deserunt voluptates error repellat",
+          "body": "Voluptas rem ut aut corporis minus quisquam. Cumque ducimus deserunt officia pariatur velit. Cum quasi debitis tempore autem in eos. Est error sint necessitatibus consequuntur perferendis perspiciatis.",
+          "user": {
+            "id": "5",
+            "name": "Isaac Vandervort",
+            "__typename": "User"
+          },
+          "created_at": "2022-04-14T12:58:18+00:00",
+          "updated_at": "2022-04-16T09:40:46+00:00",
+          "__typename": "Post"
+        }
+      ],
+      "__typename": "PostPaginator"
+    }
+  }
+}

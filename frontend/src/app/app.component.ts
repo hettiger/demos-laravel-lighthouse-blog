@@ -8,8 +8,8 @@ import {
   Router
 } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { fadeRoutesAnimation } from './animations';
-import { animate, style, transition, trigger, useAnimation } from '@angular/animations';
+import { durationParams, fadeInAnimation, fadeOutAnimation, fadeRoutesAnimation } from './animations';
+import { transition, trigger, useAnimation } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -18,11 +18,10 @@ import { animate, style, transition, trigger, useAnimation } from '@angular/anim
   animations: [
     trigger('progressBarAnimations', [
       transition(':enter', [
-        style({ opacity: 0 }),
-        animate('150ms', style({ opacity: 1 })),
+        useAnimation(fadeInAnimation, { params: durationParams('150ms') }),
       ]),
       transition(':leave', [
-        animate('150ms', style({ opacity: 0 })),
+        useAnimation(fadeOutAnimation, { params: durationParams('150ms') }),
       ]),
     ]),
     trigger('routeAnimations', [

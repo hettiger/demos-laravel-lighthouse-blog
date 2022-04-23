@@ -8,13 +8,31 @@ import {
   Router
 } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { fadeAnimation } from './animations';
+import { fadeRoutesAnimation } from './animations';
+import { animate, style, transition, trigger, useAnimation } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [fadeAnimation],
+  animations: [
+    trigger('progressBarAnimations', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('150ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('150ms', style({ opacity: 0 })),
+      ]),
+    ]),
+    trigger('routeAnimations', [
+      transition('* => *', [
+        useAnimation(fadeRoutesAnimation, { params: {
+          duration: '300ms',
+        }}),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit, OnDestroy {
 

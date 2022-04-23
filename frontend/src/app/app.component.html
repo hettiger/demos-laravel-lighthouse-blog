@@ -4,7 +4,12 @@
       { label: 'Posts', icon: 'feed', routerLink: ['/posts'] }
     ]"></nav>
   </mat-toolbar>
-  <mat-progress-bar *ngIf="isLoading" class="progress-bar" mode="indeterminate"></mat-progress-bar>
+  <mat-progress-bar
+    *ngIf="isLoading"
+    @progressBarAnimations
+    class="progress-bar"
+    mode="indeterminate"
+  ></mat-progress-bar>
 </header>
 <main [@routeAnimations]="outlet.isActivated ? outlet.activatedRoute : ''">
   <router-outlet #outlet="outlet"></router-outlet>

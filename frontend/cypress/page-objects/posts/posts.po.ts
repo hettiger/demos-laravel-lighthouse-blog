@@ -14,6 +14,10 @@ export class PostsPO {
     return this.page.contains('Fake Post Title (Fake User Name, Jan 1, 1970)');
   }
 
+  get createPostButton() {
+    return this.page.contains('Create Post');
+  }
+
   constructor(interceptRequests = true) {
     if (interceptRequests) {
       this.interceptRequests();

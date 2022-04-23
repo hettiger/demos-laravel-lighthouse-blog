@@ -6,6 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MainNavComponent } from './components/main-nav/main-nav.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ActionsComponent } from './components/actions/actions.component';
 
 const sharedDeclarations = [
   MainNavComponent,
@@ -17,12 +20,15 @@ const sharedModules = [
   MatProgressBarModule,
   MatButtonModule,
   MatIconModule,
+  MatFormFieldModule,
+  MatInputModule,
 ];
 
 @NgModule({
   declarations: [
     ...sharedDeclarations,
     MainNavComponent,
+    ActionsComponent,
   ],
   imports: [
     RouterModule,
@@ -31,6 +37,7 @@ const sharedModules = [
   exports: [
     ...sharedDeclarations,
     ...sharedModules,
+    ActionsComponent,
   ]
 })
 export class SharedModule { }

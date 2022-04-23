@@ -1,0 +1,17 @@
+<h1>Create Post</h1>
+<form>
+  <mat-form-field class="form__field">
+    <mat-label>Title</mat-label>
+    <input matInput>
+  </mat-form-field>
+
+  <mat-form-field class="form__field">
+    <mat-label>Body</mat-label>
+    <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
+  </mat-form-field>
+
+  <app-actions>
+    <button mat-raised-button type="button">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Create Post</button>
+  </app-actions>
+</form>

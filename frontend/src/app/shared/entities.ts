@@ -5,3 +5,7 @@ export interface Link {
   icon: string;
   routerLink: RouterLinkCommands;
 }
+
+export interface MessageBag {
+  [key: string]: string[];
+}

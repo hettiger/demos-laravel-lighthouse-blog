@@ -1,7 +1,18 @@
-import { animate, animation, query, style, useAnimation } from '@angular/animations';
+import { animate, animation, query, style, transition, trigger, useAnimation } from '@angular/animations';
 
 export function durationParams(duration: string) {
   return { duration };
+}
+
+export function fadeAnimation(triggerName: string, duration: string) {
+  return trigger(triggerName, [
+    transition(':enter', [
+      useAnimation(fadeInAnimation, { params: durationParams(duration) }),
+    ]),
+    transition(':leave', [
+      useAnimation(fadeOutAnimation, { params: durationParams(duration) }),
+    ]),
+  ]);
 }
 
 export const fadeInAnimation = animation([

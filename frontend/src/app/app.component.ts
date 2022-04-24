@@ -7,7 +7,7 @@ import {
   Router
 } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-import { durationParams, fadeInAnimation, fadeOutAnimation, fadeRoutesAnimation } from './animations';
+import { fadeAnimation, fadeRoutesAnimation } from './animations';
 import { transition, trigger, useAnimation } from '@angular/animations';
 
 @Component({
@@ -15,14 +15,7 @@ import { transition, trigger, useAnimation } from '@angular/animations';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
-    trigger('progressBarAnimations', [
-      transition(':enter', [
-        useAnimation(fadeInAnimation, { params: durationParams('150ms') }),
-      ]),
-      transition(':leave', [
-        useAnimation(fadeOutAnimation, { params: durationParams('150ms') }),
-      ]),
-    ]),
+    fadeAnimation('fade', '150ms'),
     trigger('routeAnimations', [
       transition('* => *', [
         useAnimation(fadeRoutesAnimation, { params: {

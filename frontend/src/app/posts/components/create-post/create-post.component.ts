@@ -3,8 +3,7 @@ import { Location } from '@angular/common';
 import { PostsService } from '../../services/posts.service';
 import { Router } from '@angular/router';
 import { LaravelValidationError } from '../../../errors/laravel-validation.error';
-import { transition, trigger, useAnimation } from '@angular/animations';
-import { durationParams, fadeInAnimation, fadeOutAnimation } from '../../../animations';
+import { fadeAnimation } from '../../../animations';
 import { MessageBag } from '../../../shared/entities';
 
 @Component({
@@ -12,14 +11,7 @@ import { MessageBag } from '../../../shared/entities';
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.scss'],
   animations: [
-    trigger('fade', [
-      transition(':enter', [
-        useAnimation(fadeInAnimation, { params: durationParams('150ms') }),
-      ]),
-      transition(':leave', [
-        useAnimation(fadeOutAnimation, { params: durationParams('150ms') }),
-      ]),
-    ]),
+    fadeAnimation('fade', '150ms'),
   ]
 })
 export class CreatePostComponent implements OnInit {

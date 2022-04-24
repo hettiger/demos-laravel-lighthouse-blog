@@ -9,13 +9,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActionsComponent } from './components/actions/actions.component';
+import { FormsModule } from '@angular/forms';
 
 const sharedDeclarations = [
   MainNavComponent,
+  ActionsComponent,
 ];
 
 const sharedModules = [
   CommonModule,
+  FormsModule,
   MatToolbarModule,
   MatProgressBarModule,
   MatButtonModule,
@@ -27,8 +30,6 @@ const sharedModules = [
 @NgModule({
   declarations: [
     ...sharedDeclarations,
-    MainNavComponent,
-    ActionsComponent,
   ],
   imports: [
     RouterModule,
@@ -37,7 +38,6 @@ const sharedModules = [
   exports: [
     ...sharedDeclarations,
     ...sharedModules,
-    ActionsComponent,
   ]
 })
 export class SharedModule { }

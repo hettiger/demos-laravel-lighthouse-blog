@@ -22,7 +22,9 @@ export class PostsService {
   ) { }
 
   posts(): Observable<Post[]> {
-    return this.postsGQL.watch().valueChanges.pipe(
+    return this.postsGQL.watch(undefined, {
+      fetchPolicy: 'network-only'
+    }).valueChanges.pipe(
       map(result => result.data.posts?.data.map(this.transform) ?? [])
     );
   }

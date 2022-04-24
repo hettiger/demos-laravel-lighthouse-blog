@@ -5,8 +5,12 @@ export class CreatePostPO {
   }
 
   get title() {
-    return cy.contains('Create Post');
+    return this.page.contains('Create Post');
   }
+
+  get cancelButton() {
+    return this.page.contains('Cancel');
+  };
 
   visit() {
     cy.visit('/posts/create');

@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
-import { filter, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import {
   CreatePostGQL,
-  CreatePostMutation,
   CreatePostMutationVariables,
   PostGQL,
   PostQueryVariables,
   PostsGQL
 } from '../../../generated/graphql';
 import { Post, PostResource } from '../entities';
-import { filterOptionals, mapRequired, transformLaravelValidationErrors } from '../../operators';
+import { mapRequired, transformLaravelValidationErrors } from '../../operators';
 
 @Injectable({
   providedIn: 'root'

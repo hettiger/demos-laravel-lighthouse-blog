@@ -1,6 +1,6 @@
 import { TestScheduler } from 'rxjs/testing';
 import { catchError } from 'rxjs';
-import { transformLaravelValidationErrors } from './operators';
+import { filterOptionals, mapRequired, transformLaravelValidationErrors } from './operators';
 import { LaravelValidationError } from './errors/laravel-validation.error';
 import { ApolloError } from '@apollo/client/core';
 import { GraphQLError } from 'graphql';
@@ -95,6 +95,46 @@ describe('Operators', () => {
             throw error;
           }),
         )).toBe(expected, undefined, expectedMessageBag);
+      });
+    });
+  });
+
+  describe('filterOptionals', () => {
+    it('filters null and undefined values', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        const values = { a: '', b: 0, n: null, c: false, d: {}, u: undefined, f: [] };
+        const source$ = cold('abncduf', values);
+        const expected = '            ab-cd-f';
+
+        expectObservable(source$.pipe(
+          filterOptionals(),
+        )).toBe(expected, values);
+      });
+    });
+  });
+
+  describe('mapRequired', () => {
+    it('maps values using a given project function', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        const source$ = cold('a', { a: 1 });
+        const expected = '            a';
+
+        expectObservable(source$.pipe(
+          mapRequired(value => value * 2),
+        )).toBe(expected, { a: 2 });
+      });
+    });
+
+    it('filters null and undefined from the resulting values', () => {
+      testScheduler.run(({ cold, expectObservable }) => {
+        const values = { a: { v: false }, n: { v: null }, b: { v: 0 }, u: { v: undefined }, c: { v: [] } };
+        const expectedValues = { a: false, b: 0, c: [] };
+        const source$ = cold('anbuc', values);
+        const expected = '            a-b-c';
+
+        expectObservable(source$.pipe(
+          mapRequired(value => value.v),
+        )).toBe(expected, expectedValues);
       });
     });
   });

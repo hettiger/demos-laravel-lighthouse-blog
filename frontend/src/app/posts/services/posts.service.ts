@@ -9,7 +9,7 @@ import {
   PostsGQL
 } from '../../../generated/graphql';
 import { Post, PostResource } from '../entities';
-import { transformLaravelValidationErrors } from '../../operators';
+import { filterOptionals, mapRequired, transformLaravelValidationErrors } from '../../operators';
 
 @Injectable({
   providedIn: 'root'
@@ -37,10 +37,7 @@ export class PostsService {
   store(document: CreatePostMutationVariables) {
     return this.createPostGQL.mutate(document).pipe(
       transformLaravelValidationErrors(),
-      map(result => result.data),
-      filter(<T>(data: T): data is NonNullable<T> => !!data), // @todo: introduce new operator for this
-      map(data => data.createPost),
-      filter(<T>(post: T): post is NonNullable<T> => !!post), // @todo: introduce new operator for this
+      mapRequired(result => result.data?.createPost),
       map(post => this.transform(post)),
     );
   }

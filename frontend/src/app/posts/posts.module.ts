@@ -11,11 +11,11 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     PostsComponent,
     PostComponent,
-    CreatePostComponent
+    CreatePostComponent,
   ],
   imports: [
     PostsRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class PostsModule { }

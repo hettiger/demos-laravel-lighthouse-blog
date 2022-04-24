@@ -1,15 +1,7 @@
 query Posts {
   posts(first: 5) {
     data {
-      id
-      title
-      body
-      user {
-        id
-        name
-      }
-      created_at
-      updated_at
+      ...Post
     }
   }
 }

@@ -1,13 +1,5 @@
 mutation CreatePost($title: String!, $body: String!) {
   createPost(user_id: 1, title: $title, body: $body) {
-    id
-    title
-    body
-    user {
-      id
-      name
-    }
-    created_at
-    updated_at
+    ...Post
   }
 }

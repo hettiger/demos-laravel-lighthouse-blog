@@ -10,10 +10,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ActionsComponent } from './components/actions/actions.component';
 import { FormsModule } from '@angular/forms';
+import { BackButtonDirective } from './directives/back-button.directive';
 
 const sharedDeclarations = [
   MainNavComponent,
   ActionsComponent,
+  BackButtonDirective,
 ];
 
 const sharedModules = [

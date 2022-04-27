@@ -1,11 +1,14 @@
 import { CreatePostPO } from '../../page-objects/posts/create-post.po';
 import { NotFoundPO } from '../../page-objects/not-found.po';
+import { PostsPO } from '../../page-objects/posts/posts.po';
 
 describe('Create Post Page', () => {
   let createPost: CreatePostPO;
+  let posts: PostsPO;
 
   beforeEach(() => {
     createPost = new CreatePostPO;
+    posts = new PostsPO;
   });
 
   it('displays a title', () => {
@@ -15,11 +18,16 @@ describe('Create Post Page', () => {
 
   describe('Back Button', () => {
     it('links back to the previous route', () => {
-      const notFound = new NotFoundPO;
-      notFound.visit();
+      posts.visit();
+      posts.createPostButton.click();
+      createPost.cancelButton.click();
+      posts.shouldBeActive();
+    });
+
+    it('falls back to the posts page', () => {
       createPost.visit();
       createPost.cancelButton.click();
-      notFound.shouldBeActive();
+      posts.shouldBeActive();
     });
   })
 });

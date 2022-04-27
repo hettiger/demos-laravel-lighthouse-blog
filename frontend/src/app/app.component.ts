@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   isLoading = false;
 
-  destroy$ = new Subject();
+  private destroy$ = new Subject();
 
   constructor(private router: Router) { }
 

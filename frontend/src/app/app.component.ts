@@ -1,11 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  NavigationCancel,
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router
-} from '@angular/router';
+import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { fadeAnimation, fadeRoutesAnimation } from './animations';
 import { transition, trigger, useAnimation } from '@angular/animations';

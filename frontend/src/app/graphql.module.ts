@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {ApolloModule, APOLLO_OPTIONS} from 'apollo-angular';
-import {ApolloClientOptions, InMemoryCache} from '@apollo/client/core';
-import {HttpLink} from 'apollo-angular/http';
+import { NgModule } from '@angular/core';
+import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
+import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import { HttpLink } from 'apollo-angular/http';
 import { environment } from '../environments/environment';
 
 const uri = environment.backendURL;

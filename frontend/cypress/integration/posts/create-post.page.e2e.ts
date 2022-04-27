@@ -1,5 +1,4 @@
 import { CreatePostPO } from '../../page-objects/posts/create-post.po';
-import { NotFoundPO } from '../../page-objects/not-found.po';
 import { PostsPO } from '../../page-objects/posts/posts.po';
 
 describe('Create Post Page', () => {

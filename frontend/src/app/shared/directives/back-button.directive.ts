@@ -20,7 +20,7 @@ export class BackButtonDirective {
     if (this.navigationHistoryService.history.length > 1) {
       this.location.back();
     } else {
-      this.router.navigate(['..'], { relativeTo: this.activatedRoute });
+      this.router.navigate(['..'], { relativeTo: this.activatedRoute, replaceUrl: true });
     }
   }
 

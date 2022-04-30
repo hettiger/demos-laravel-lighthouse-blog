@@ -64,7 +64,7 @@ describe('BackButtonDirective', () => {
 
     expect(routerSpy).toHaveBeenCalledOnceWith(
       ['..'],
-      { relativeTo: TestBed.inject(ActivatedRoute)},
+      { relativeTo: TestBed.inject(ActivatedRoute), replaceUrl: true },
     );
   });
 });

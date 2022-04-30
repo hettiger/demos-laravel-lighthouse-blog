@@ -1,4 +1,5 @@
 import { aliasQuery, hasOperationName } from '../../utils/graphql-test-utils';
+import { environment } from '../../../src/environments/environment';
 
 export class CreatePostPO {
 
@@ -31,7 +32,7 @@ export class CreatePostPO {
   }
 
   interceptCreatePostRequest(fixture: 'post' | 'create-post-error' = 'post' ) {
-    cy.intercept('POST', 'http://laravel-lighthouse-blog-backend.test/graphql', req => {
+    cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'CreatePost')) {
         aliasQuery(req, 'CreatePost');
         req.reply({ fixture: `${fixture}.json` });

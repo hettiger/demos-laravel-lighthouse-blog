@@ -15,6 +15,20 @@ describe('Create Post Page', () => {
     createPost.title.should('be.visible');
   });
 
+  it('displays server errors', () => {
+    createPost.interceptCreatePostRequest('create-post-error');
+    createPost.visit();
+    createPost.inputFormValues({
+      title: 'Some invalid title',
+      body: 'Some invalid body'
+    });
+
+    createPost.createButton.click();
+
+    createPost.titleErrorMessage.should('be.visible');
+    createPost.bodyErrorMessage.should('be.visible');
+  });
+
   describe('Back Button', () => {
     it('links back to the previous route', () => {
       posts.visit();
@@ -28,5 +42,5 @@ describe('Create Post Page', () => {
       createPost.cancelButton.click();
       posts.shouldBeActive();
     });
-  })
+  });
 });

@@ -1,0 +1,31 @@
+{
+  "errors": [
+    {
+      "message": "Validation failed for the field [updatePost].",
+      "extensions": {
+        "validation": {
+          "title": [
+            "Fake Title Error Message"
+          ],
+          "body": [
+            "Fake Body Error Message"
+          ]
+        },
+        "category": "validation"
+      },
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ],
+      "path": [
+        "updatePost"
+      ],
+      "trace": []
+    }
+  ],
+  "data": {
+    "updatePost": null
+  }
+}

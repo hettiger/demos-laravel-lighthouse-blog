@@ -23,6 +23,14 @@ export class PostPO {
     return this.page.contains('Jan 1, 1970');
   }
 
+  get actions() {
+    return this.page.find('app-actions').first();
+  }
+
+  get editPostButton() {
+    return this.actions.contains('Edit Post');
+  }
+
   constructor(interceptRequests = true) {
     if (interceptRequests) {
       this.interceptRequests();

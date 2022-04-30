@@ -21,18 +21,18 @@ describe('Create Post Page', () => {
     createPost.visit();
     createPost.inputFormValues();
 
-    createPost.createButton.click();
+    createPost.actionButton.click();
 
     createPost.titleErrorMessage.should('be.visible');
     createPost.bodyErrorMessage.should('be.visible');
   });
 
-  it('navigates to the posts page on success', () => {
+  it('navigates back on success', () => {
     createPost.interceptCreatePostRequest();
     createPost.visit();
     createPost.inputFormValues();
 
-    createPost.createButton.click();
+    createPost.actionButton.click();
 
     posts.shouldBeActive();
   });
@@ -41,7 +41,12 @@ describe('Create Post Page', () => {
     it('is disabled when form is invalid', () => {
       createPost.visit();
 
-      createPost.createButton.should('be.disabled');
+      createPost.inputFormValues({
+        title: '',
+        body: ''
+      });
+
+      createPost.actionButton.should('be.disabled');
     });
 
     it('displays a loading spinner when loading', () => {
@@ -49,7 +54,7 @@ describe('Create Post Page', () => {
       createPost.visit();
       createPost.inputFormValues();
 
-      createPost.createButton.click();
+      createPost.actionButton.click();
 
       createPost.actions.find('mat-progress-spinner').should('be.visible');
     });

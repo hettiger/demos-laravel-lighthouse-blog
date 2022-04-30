@@ -254,6 +254,15 @@ export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type PostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostPaginator', data: Array<{ __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } }> } | null };
 
+export type UpdatePostMutationVariables = Exact<{
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  body: Scalars['String'];
+}>;
+
+
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost?: { __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } } | null };
+
 export const PostFragmentDoc = gql`
     fragment Post on Post {
   id
@@ -318,6 +327,24 @@ export const PostsDocument = gql`
   })
   export class PostsGQL extends Apollo.Query<PostsQuery, PostsQueryVariables> {
     document = PostsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdatePostDocument = gql`
+    mutation UpdatePost($id: ID!, $title: String!, $body: String!) {
+  updatePost(id: $id, title: $title, body: $body) {
+    ...Post
+  }
+}
+    ${PostFragmentDoc}`;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdatePostGQL extends Apollo.Mutation<UpdatePostMutation, UpdatePostMutationVariables> {
+    document = UpdatePostDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

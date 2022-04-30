@@ -2,7 +2,7 @@
 <form #form="ngForm" novalidate (ngSubmit)="form.reset(form.value); submit(form.value)">
   <mat-form-field class="form__field">
     <mat-label>Title</mat-label>
-    <input #title="ngModel" matInput ngModel name="title" required>
+    <input #title="ngModel" matInput ngModel="{{ post?.title }}" name="title" required>
     <mat-hint *ngIf="title.pristine && serverErrors['title']" @fade>
       <span class="mat-error">{{ serverErrors['title'][0] }}</span>
     </mat-hint>
@@ -15,7 +15,7 @@
       matInput
       cdkTextareaAutosize
       cdkAutosizeMinRows="1"
-      ngModel
+      ngModel="{{ post?.body }}"
       name="body"
       required
     ></textarea>

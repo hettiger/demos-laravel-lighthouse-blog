@@ -6,6 +6,7 @@ import { PostComponent } from './components/post/post.component';
 import { CreatePostComponent } from './components/create-post/create-post.component';
 import { SharedModule } from '../shared/shared.module';
 import { PostFormComponent } from './components/post-form/post-form.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { PostFormComponent } from './components/post-form/post-form.component';
     PostComponent,
     CreatePostComponent,
     PostFormComponent,
+    EditPostComponent,
   ],
   imports: [
     PostsRoutingModule,

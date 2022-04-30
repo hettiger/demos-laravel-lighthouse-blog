@@ -5,7 +5,9 @@ import {
   CreatePostMutationVariables,
   PostGQL,
   PostQueryVariables,
-  PostsGQL
+  PostsGQL,
+  UpdatePostGQL,
+  UpdatePostMutationVariables
 } from '../../../generated/graphql';
 import { Post, PostResource } from '../entities';
 import { mapRequired, transformLaravelValidationErrors } from '../../operators';
@@ -19,6 +21,7 @@ export class PostsService {
     private postsGQL: PostsGQL,
     private postGQL: PostGQL,
     private createPostGQL: CreatePostGQL,
+    private updatePostGQL: UpdatePostGQL,
   ) { }
 
   posts(): Observable<Post[]> {
@@ -39,6 +42,14 @@ export class PostsService {
     return this.createPostGQL.mutate(document).pipe(
       transformLaravelValidationErrors(),
       mapRequired(result => result.data?.createPost),
+      map(post => this.transform(post)),
+    );
+  }
+
+  update(document: UpdatePostMutationVariables) {
+    return this.updatePostGQL.mutate(document).pipe(
+      transformLaravelValidationErrors(),
+      mapRequired(result => result.data?.updatePost),
       map(post => this.transform(post)),
     );
   }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY, finalize, Observable } from 'rxjs';
+import { EMPTY, finalize, Observable, pluck } from 'rxjs';
 
 import { MessageBag } from '../../../shared/entities';
 import { fadeAnimation } from '../../../animations';
@@ -29,6 +29,7 @@ export class PostFormComponent implements OnInit {
 
   isLoading = false;
   serverErrors: MessageBag = {};
+  post?: Post;
 
   constructor(
     private router: Router,
@@ -36,13 +37,19 @@ export class PostFormComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.activatedRoute.data.pipe(pluck('post')).subscribe(
+      post => this.post = post
+    );
   }
 
   submit(post: any) {
     this.isLoading = true;
     this.serverErrors = {};
 
-    this.action(post).pipe(
+    this.action({
+      id: this.post ? this.post.id : undefined,
+      ...post
+    }).pipe(
       finalize(() => this.isLoading = false),
     ).subscribe({
       next: () => this.router.navigate(

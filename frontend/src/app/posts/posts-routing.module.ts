@@ -5,6 +5,7 @@ import { PostComponent } from './components/post/post.component';
 import { PostsResolver } from './resolvers/posts.resolver';
 import { PostResolver } from './resolvers/post.resolver';
 import { CreatePostComponent } from './components/create-post/create-post.component';
+import { EditPostComponent } from './components/edit-post/edit-post.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,11 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreatePostComponent
+  },
+  {
+    path: ':id/edit',
+    component: EditPostComponent,
+    resolve: { post: PostResolver }
   },
   {
     path: ':id',

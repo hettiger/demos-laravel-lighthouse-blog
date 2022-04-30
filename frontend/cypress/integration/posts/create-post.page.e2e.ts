@@ -19,10 +19,7 @@ describe('Create Post Page', () => {
   it('displays server errors', () => {
     createPost.interceptCreatePostRequest('create-post-error');
     createPost.visit();
-    createPost.inputFormValues({
-      title: 'Some invalid title',
-      body: 'Some invalid body'
-    });
+    createPost.inputFormValues();
 
     createPost.createButton.click();
 
@@ -33,10 +30,7 @@ describe('Create Post Page', () => {
   it('navigates to the posts page on success', () => {
     createPost.interceptCreatePostRequest();
     createPost.visit();
-    createPost.inputFormValues({
-      title: 'Some valid title',
-      body: 'Some valid body'
-    });
+    createPost.inputFormValues();
 
     createPost.createButton.click();
 
@@ -48,6 +42,16 @@ describe('Create Post Page', () => {
       createPost.visit();
 
       createPost.createButton.should('be.disabled');
+    });
+
+    it('displays a loading spinner when loading', () => {
+      createPost.interceptCreatePostRequest('create-post', 1_000);
+      createPost.visit();
+      createPost.inputFormValues();
+
+      createPost.createButton.click();
+
+      createPost.actions.find('mat-progress-spinner').should('be.visible');
     });
   });
 

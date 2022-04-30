@@ -31,11 +31,11 @@ export class CreatePostPO {
     return this.page.contains('Fake Body Error Message');
   }
 
-  interceptCreatePostRequest(fixture: 'create-post' | 'create-post-error' = 'create-post' ) {
+  interceptCreatePostRequest(fixture: 'create-post' | 'create-post-error' = 'create-post', delay = 0) {
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'CreatePost')) {
         aliasQuery(req, 'CreatePost');
-        req.reply({ fixture: `${fixture}.json` });
+        req.reply({ fixture: `${fixture}.json`, delay: delay });
       }
     }).as('GraphQL');
   }
@@ -50,7 +50,7 @@ export class CreatePostPO {
     this.page.should('be.visible');
   }
 
-  inputFormValues(values: { title?: string; body?: string }) {
+  inputFormValues(values: { title?: string; body?: string } = { title: 'Some title', body: 'Some body' }) {
     if (values.title) {
       this.page.find('[name=title]').first().type(values.title);
     }

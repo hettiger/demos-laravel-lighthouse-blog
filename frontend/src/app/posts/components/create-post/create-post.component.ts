@@ -29,7 +29,10 @@ export class CreatePostComponent implements OnInit {
   create(post: any) {
     this.serverErrors = {};
     this.postsService.store(post).subscribe({
-      next: () => this.router.navigate(['..'], { relativeTo: this.activatedRoute }),
+      next: () => this.router.navigate(
+        ['..'],
+        { relativeTo: this.activatedRoute, replaceUrl: true }
+      ),
       error: error => {
         if (error instanceof LaravelValidationError) {
           this.serverErrors = error.messageBag;

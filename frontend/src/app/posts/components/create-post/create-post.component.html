@@ -26,6 +26,8 @@
 
   <app-actions>
     <button mat-raised-button type="button" appBackButton>Cancel</button>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Create Post</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid || isLoading">
+      <app-spinning-button-label [isSpinning]="isLoading">Create Post</app-spinning-button-label>
+    </button>
   </app-actions>
 </form>

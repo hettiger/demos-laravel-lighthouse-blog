@@ -11,11 +11,14 @@ import { MatInputModule } from '@angular/material/input';
 import { ActionsComponent } from './components/actions/actions.component';
 import { FormsModule } from '@angular/forms';
 import { BackButtonDirective } from './directives/back-button.directive';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SpinningButtonLabelComponent } from './components/spinning-button-label/spinning-button-label.component';
 
 const sharedDeclarations = [
   MainNavComponent,
   ActionsComponent,
   BackButtonDirective,
+  SpinningButtonLabelComponent,
 ];
 
 const sharedModules = [
@@ -27,6 +30,7 @@ const sharedModules = [
   MatIconModule,
   MatFormFieldModule,
   MatInputModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

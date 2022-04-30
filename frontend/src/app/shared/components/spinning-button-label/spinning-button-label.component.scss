@@ -1,0 +1,16 @@
+:host {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinning-button-label {
+  &--hidden {
+    visibility: hidden;
+  }
+
+  ::ng-deep & + mat-progress-spinner {
+    position: absolute;
+  }
+}

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LaravelValidationError } from '../../../errors/laravel-validation.error';
 import { fadeAnimation } from '../../../animations';
 import { MessageBag } from '../../../shared/entities';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-create-post',
@@ -15,6 +16,7 @@ import { MessageBag } from '../../../shared/entities';
 })
 export class CreatePostComponent implements OnInit {
 
+  isLoading = false;
   serverErrors: MessageBag = {};
 
   constructor(
@@ -27,8 +29,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   create(post: any) {
+    this.isLoading = true;
     this.serverErrors = {};
-    this.postsService.store(post).subscribe({
+
+    this.postsService.store(post).pipe(
+      finalize(() => this.isLoading = false),
+    ).subscribe({
       next: () => this.router.navigate(
         ['..'],
         { relativeTo: this.activatedRoute, replaceUrl: true }

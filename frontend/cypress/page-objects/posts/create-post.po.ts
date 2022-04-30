@@ -31,7 +31,7 @@ export class CreatePostPO {
     return this.page.contains('Fake Body Error Message');
   }
 
-  interceptCreatePostRequest(fixture: 'post' | 'create-post-error' = 'post' ) {
+  interceptCreatePostRequest(fixture: 'create-post' | 'create-post-error' = 'create-post' ) {
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'CreatePost')) {
         aliasQuery(req, 'CreatePost');

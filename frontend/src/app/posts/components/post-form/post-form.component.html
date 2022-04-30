@@ -1,0 +1,33 @@
+<h1>{{ options.title }}</h1>
+<form #form="ngForm" novalidate (ngSubmit)="form.reset(form.value); submit(form.value)">
+  <mat-form-field class="form__field">
+    <mat-label>Title</mat-label>
+    <input #title="ngModel" matInput ngModel name="title" required>
+    <mat-hint *ngIf="title.pristine && serverErrors['title']" @fade>
+      <span class="mat-error">{{ serverErrors['title'][0] }}</span>
+    </mat-hint>
+  </mat-form-field>
+
+  <mat-form-field class="form__field">
+    <mat-label>Body</mat-label>
+    <textarea
+      #body="ngModel"
+      matInput
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      ngModel
+      name="body"
+      required
+    ></textarea>
+    <mat-hint *ngIf="body.pristine && serverErrors['body']" @fade>
+      <span class="mat-error">{{ serverErrors['body'][0] }}</span>
+    </mat-hint>
+  </mat-form-field>
+
+  <app-actions>
+    <button mat-raised-button type="button" appBackButton>Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid || isLoading">
+      <app-spinning-button-label [isSpinning]="isLoading">{{ options.buttonLabel }}</app-spinning-button-label>
+    </button>
+  </app-actions>
+</form>

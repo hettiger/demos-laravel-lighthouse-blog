@@ -43,6 +43,14 @@ describe('Create Post Page', () => {
     posts.shouldBeActive();
   });
 
+  describe('Create Post Button', () => {
+    it('is disabled when form is invalid', () => {
+      createPost.visit();
+
+      createPost.createButton.should('be.disabled');
+    });
+  });
+
   describe('Back Button', () => {
     it('links back to the previous route', () => {
       posts.visit();

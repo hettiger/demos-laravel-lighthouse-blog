@@ -1,6 +1,8 @@
 export type PostFormFixtureType = 'success' | 'error';
 
 export interface PostFormPageObjectOptions {
+  description: string;
+  hydratesFields: boolean;
   selector: string;
   title: string;
   actionButtonLabel: string;
@@ -11,11 +13,11 @@ export interface PostFormPageObjectOptions {
 export abstract class PostFormPO {
 
   get page() {
-    return cy.get(this.options.selector);
+    return cy.get(this.options().selector);
   }
 
   get title() {
-    return this.page.contains(this.options.title);
+    return this.page.contains(this.options().title);
   }
 
   get actions() {
@@ -27,7 +29,7 @@ export abstract class PostFormPO {
   };
 
   get actionButton() {
-    return this.actions.contains(this.options.actionButtonLabel);
+    return this.actions.contains(this.options().actionButtonLabel);
   }
 
   get titleErrorMessage() {
@@ -46,17 +48,19 @@ export abstract class PostFormPO {
     return this.page.find('[name=body]').first();
   }
 
-  protected abstract options: PostFormPageObjectOptions;
+  abstract options(): PostFormPageObjectOptions;
 
   abstract interceptActionRequest(fixtureType?: PostFormFixtureType, delay?: number): void;
 
+  abstract backNavigationTarget(): { shouldBeActive: () => void };
+
   visit() {
-    cy.visit(this.options.path);
+    cy.visit(this.options().path);
     this.shouldBeActive();
   }
 
   shouldBeActive() {
-    cy.url().should('match', this.options.pathRegex);
+    cy.url().should('match', this.options().pathRegex);
     this.page.should('be.visible');
   }
 

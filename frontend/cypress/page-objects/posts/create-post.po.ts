@@ -1,17 +1,22 @@
 import { aliasQuery, hasOperationName } from '../../utils/graphql-test-utils';
 import { environment } from '../../../src/environments/environment';
 import { PostFormPO, PostFormPageObjectOptions, PostFormFixtureType } from './post-form.po';
+import { PostsPO } from './posts.po';
 
 export class CreatePostPO extends PostFormPO {
 
-  get options(): PostFormPageObjectOptions {
-    return {
-      selector: 'app-create-post',
-      title: 'Create Post',
-      actionButtonLabel: 'Create Post',
-      path: '/posts/create',
-      pathRegex: /\/posts\/create$/,
-    };
+  static options: PostFormPageObjectOptions = {
+    description: 'Create Post Page',
+    hydratesFields: false,
+    selector: 'app-create-post',
+    title: 'Create Post',
+    actionButtonLabel: 'Create Post',
+    path: '/posts/create',
+    pathRegex: /\/posts\/create$/,
+  };
+
+  options(): PostFormPageObjectOptions {
+    return CreatePostPO.options;
   }
 
   interceptActionRequest(fixtureType: PostFormFixtureType = 'success', delay = 0) {
@@ -28,5 +33,9 @@ export class CreatePostPO extends PostFormPO {
         req.reply({ fixture, delay });
       }
     }).as('GraphQL');
+  }
+
+  backNavigationTarget(): { shouldBeActive: () => void } {
+    return new PostsPO;
   }
 }

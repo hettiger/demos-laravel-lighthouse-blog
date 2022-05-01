@@ -1,17 +1,22 @@
 import { aliasQuery, hasOperationName } from '../../utils/graphql-test-utils';
 import { environment } from '../../../src/environments/environment';
 import { PostFormPO, PostFormPageObjectOptions, PostFormFixtureType } from './post-form.po';
+import { PostPO } from './post.po';
 
 export class EditPostPO extends PostFormPO {
 
-  get options(): PostFormPageObjectOptions {
-    return {
-      selector: 'app-edit-post',
-      title: 'Edit Post',
-      actionButtonLabel: 'Update Post',
-      path: '/posts/1/edit',
-      pathRegex: /\/posts\/1\/edit$/,
-    };
+  static options: PostFormPageObjectOptions = {
+    description: 'Edit Post Page',
+    hydratesFields: true,
+    selector: 'app-edit-post',
+    title: 'Edit Post',
+    actionButtonLabel: 'Update Post',
+    path: '/posts/1/edit',
+    pathRegex: /\/posts\/1\/edit$/,
+  }
+
+  options(): PostFormPageObjectOptions {
+    return EditPostPO.options;
   }
 
   constructor(interceptRequests = true) {
@@ -45,5 +50,9 @@ export class EditPostPO extends PostFormPO {
         req.reply({ fixture, delay });
       }
     }).as('GraphQL');
+  }
+
+  backNavigationTarget(): { shouldBeActive: () => void } {
+    return new PostPO;
   }
 }

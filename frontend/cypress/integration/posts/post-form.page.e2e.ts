@@ -1,33 +1,15 @@
 import { PostFormPO } from '../../page-objects/posts/post-form.po';
 import { CreatePostPO } from '../../page-objects/posts/create-post.po';
 import { EditPostPO } from '../../page-objects/posts/edit-post.po';
-import { PostsPO } from '../../page-objects/posts/posts.po';
-import { PostPO } from '../../page-objects/posts/post.po';
 
 describe('Post Form Page', () => {
   [CreatePostPO, EditPostPO].forEach((_postForm) => {
-    const testCase = () => {
-      switch (_postForm) {
-        case CreatePostPO: return 'Create Post Page';
-        case EditPostPO: return 'Edit Post Page';
-        default: throw new Error('Unexpected postForm type');
-      }
-    }
-
-    describe(testCase(), () => {
+    describe(_postForm.options.description, () => {
       let postForm: PostFormPO;
 
       beforeEach(() => {
         postForm = new _postForm;
       });
-
-      const assertDidNavigateBack = () => {
-        switch (_postForm) {
-          case CreatePostPO: (new PostsPO).shouldBeActive(); break;
-          case EditPostPO: (new PostPO).shouldBeActive(); break;
-          default: throw new Error('Unexpected postForm type');
-        }
-      }
 
       it('displays a title', () => {
         postForm.visit();
@@ -46,7 +28,7 @@ describe('Post Form Page', () => {
         postForm.bodyErrorMessage.should('be.visible');
       });
 
-      if (_postForm === EditPostPO) {
+      if (_postForm.options.hydratesFields) {
         it('is hydrated with the existing post data', () => {
           postForm.visit();
 
@@ -56,13 +38,14 @@ describe('Post Form Page', () => {
       }
 
       it('navigates back on success', () => {
+        const backNavigationTarget = postForm.backNavigationTarget();
         postForm.interceptActionRequest();
         postForm.visit();
         postForm.inputFormValues();
 
         postForm.actionButton.click();
 
-        assertDidNavigateBack();
+        backNavigationTarget.shouldBeActive();
       });
 
       describe('Action Button', () => {
@@ -90,10 +73,11 @@ describe('Post Form Page', () => {
 
       describe('Back Button', () => {
         it('navigates back', () => {
+          const backNavigationTarget = postForm.backNavigationTarget();
           postForm.visit();
           postForm.cancelButton.click();
 
-          assertDidNavigateBack();
+          backNavigationTarget.shouldBeActive();
         });
       });
     });

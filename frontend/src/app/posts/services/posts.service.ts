@@ -1,15 +1,12 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+
 import {
   CreatePostGQL,
-  CreatePostMutationVariables,
   DeletePostGQL,
-  DeletePostMutationVariables,
   PostGQL,
-  PostQueryVariables,
   PostsGQL,
   UpdatePostGQL,
-  UpdatePostMutationVariables
 } from '../../../generated/graphql';
 import { Post, PostResource } from '../entities';
 import { mapRequired, transformLaravelValidationErrors } from '../../operators';
@@ -35,15 +32,15 @@ export class PostsService {
     );
   }
 
-  post(id: PostQueryVariables['id']): Observable<Post | null> {
+  post(id: Post['id']): Observable<null | Post> {
     return this.postGQL.watch({ id }).valueChanges.pipe(
-      map(result => (result.data.post ? this.transform(result.data.post) : null)
-    ));
+      map(result => result.data.post ? this.transform(result.data.post) : null),
+    );
   }
 
-  store(document: CreatePostMutationVariables) {
+  store(post: Pick<Post, 'title' | 'body'>): Observable<Post> {
     return this.createPostGQL.mutate(
-      document,
+      post,
       {
         update: cache => {
           cache.evict({ fieldName: POSTS_QUERY_FIELD });
@@ -57,15 +54,15 @@ export class PostsService {
     );
   }
 
-  update(document: UpdatePostMutationVariables) {
-    return this.updatePostGQL.mutate(document).pipe(
+  update(post: Pick<Post, 'id' | 'title' | 'body'>): Observable<Post> {
+    return this.updatePostGQL.mutate(post).pipe(
       transformLaravelValidationErrors(),
       mapRequired(result => result.data?.updatePost),
       map(post => this.transform(post)),
     );
   }
 
-  destroy(id: DeletePostMutationVariables['id']): Observable<Post | null> {
+  destroy(id: Post['id']): Observable<null | Post> {
     return this.deletePostGQL.mutate(
       { id },
       {
@@ -78,8 +75,7 @@ export class PostsService {
         },
       }
     ).pipe(
-      mapRequired(result => result.data?.deletePost),
-      map(post => this.transform(post)),
+      map(result => result.data?.deletePost ? this.transform(result.data.deletePost) : null),
     );
   }
 

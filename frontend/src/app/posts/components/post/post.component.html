@@ -5,6 +5,7 @@
     <small>{{ post.created_at | date }}, {{ post.user.name }}</small>
   </p>
   <app-actions>
+    <button mat-raised-button color="warn" (click)="destroy(post)">Delete Post</button>
     <button mat-raised-button color="primary" [routerLink]="['./edit']">Edit Post</button>
   </app-actions>
 </ng-container>

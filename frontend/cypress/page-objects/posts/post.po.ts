@@ -27,6 +27,10 @@ export class PostPO {
     return this.page.find('app-actions').first();
   }
 
+  get deletePostButton() {
+    return this.actions.contains('Delete Post');
+  }
+
   get editPostButton() {
     return this.actions.contains('Edit Post');
   }
@@ -42,6 +46,11 @@ export class PostPO {
       if (hasOperationName(req, 'Post')) {
         aliasQuery(req, 'Post');
         req.reply({ fixture: 'post.json' });
+      }
+
+      if (hasOperationName(req, 'DeletePost')) {
+        aliasQuery(req, 'DeletePost');
+        req.reply({ fixture: 'delete-post.json' });
       }
     }).as('GraphQL');
   }

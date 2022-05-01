@@ -1,5 +1,6 @@
 import { PostPO } from '../../page-objects/posts/post.po';
 import { EditPostPO } from '../../page-objects/posts/edit-post.po';
+import { PostsPO } from '../../page-objects/posts/posts.po';
 
 describe('Post Page', () => {
   let post: PostPO;
@@ -17,12 +18,25 @@ describe('Post Page', () => {
     post.date.should('be.visible');
   });
 
-  it('links to the edit post page', () => {
-    const editPost = new EditPostPO;
-    post.visit();
+  describe('Delete Button', () => {
+    it('navigates back on success', () => {
+      const posts = new PostsPO;
+      post.visit();
 
-    post.editPostButton.click();
+      post.deletePostButton.click();
 
-    editPost.shouldBeActive();
+      posts.shouldBeActive();
+    });
+  });
+
+  describe('Edit Button', () => {
+    it('navigates to the edit post page', () => {
+      const editPost = new EditPostPO;
+      post.visit();
+
+      post.editPostButton.click();
+
+      editPost.shouldBeActive();
+    });
   });
 });

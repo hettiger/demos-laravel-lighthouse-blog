@@ -1,3 +1,5 @@
+export type PostFormFixtureType = 'success' | 'error';
+
 export interface PostFormPageObjectOptions {
   selector: string;
   title: string;
@@ -45,6 +47,8 @@ export abstract class PostFormPO {
   }
 
   protected abstract options: PostFormPageObjectOptions;
+
+  abstract interceptActionRequest(fixtureType?: PostFormFixtureType, delay?: number): void;
 
   visit() {
     cy.visit(this.options.path);

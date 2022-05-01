@@ -1,6 +1,6 @@
 import { aliasQuery, hasOperationName } from '../../utils/graphql-test-utils';
 import { environment } from '../../../src/environments/environment';
-import { PostFormPO, PostFormPageObjectOptions } from './post-form.po';
+import { PostFormPO, PostFormPageObjectOptions, PostFormFixtureType } from './post-form.po';
 
 export class EditPostPO extends PostFormPO {
 
@@ -31,11 +31,18 @@ export class EditPostPO extends PostFormPO {
     }).as('GraphQL');
   }
 
-  interceptUpdatePostRequest(fixture: 'update-post' | 'update-post-error' = 'update-post', delay = 0) {
+  interceptActionRequest(fixtureType: PostFormFixtureType = 'success', delay = 0) {
+    let fixture: string;
+    switch (fixtureType) {
+      case 'success': fixture = 'update-post.json'; break;
+      case 'error': fixture = 'update-post-error.json'; break;
+      default: throw new Error('Unexpected fixtureType');
+    }
+
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'UpdatePost')) {
         aliasQuery(req, 'UpdatePost');
-        req.reply({ fixture: `${fixture}.json`, delay: delay });
+        req.reply({ fixture, delay });
       }
     }).as('GraphQL');
   }

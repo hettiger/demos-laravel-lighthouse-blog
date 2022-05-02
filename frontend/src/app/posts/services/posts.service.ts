@@ -67,10 +67,8 @@ export class PostsService {
       { id },
       {
         update: (cache, result) => {
-          const deletedPost = result.data?.deletePost;
-          if (!deletedPost) { return; }
           cache.evict({ fieldName: POSTS_QUERY_FIELD });
-          cache.evict({ id: cache.identify(deletedPost) });
+          cache.evict({ id: cache.identify({ id, __typename: 'Post' }) });
           cache.gc();
         },
       }

@@ -28,28 +28,27 @@ export class EditPostPO extends PostFormPO {
   }
 
   interceptRequests() {
+    const fixture = 'post.json';
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'Post')) {
         aliasQuery(req, 'Post');
-        req.reply({ fixture: 'post.json' });
+        req.reply({ fixture });
       }
-    }).as('GraphQL');
+    }).as(fixture);
   }
 
   interceptActionRequest(fixtureType: PostFormFixtureType = 'success', delay = 0) {
-    let fixture: string;
-    switch (fixtureType) {
-      case 'success': fixture = 'update-post.json'; break;
-      case 'error': fixture = 'update-post-error.json'; break;
-      default: throw new Error('Unexpected fixtureType');
-    }
+    const fixture = {
+      success: 'update-post.json',
+      error: 'update-post-error.json',
+    }[fixtureType];
 
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'UpdatePost')) {
         aliasQuery(req, 'UpdatePost');
         req.reply({ fixture, delay });
       }
-    }).as('GraphQL');
+    }).as(fixture);
   }
 
   backNavigationTarget(): { shouldBeActive: () => void } {

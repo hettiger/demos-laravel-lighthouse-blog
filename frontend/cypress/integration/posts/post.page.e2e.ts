@@ -21,6 +21,17 @@ describe('Post Page', () => {
   describe('Delete Button', () => {
     it('navigates back on success', () => {
       const posts = new PostsPO;
+      post.interceptDeleteRequest();
+      post.visit();
+
+      post.deletePostButton.click();
+
+      posts.shouldBeActive();
+    });
+
+    it('navigates back on missing post', () => {
+      const posts = new PostsPO;
+      post.interceptDeleteRequest('missing');
       post.visit();
 
       post.deletePostButton.click();

@@ -42,17 +42,27 @@ export class PostPO {
   }
 
   interceptRequests() {
+    const fixture = 'post.json';
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'Post')) {
         aliasQuery(req, 'Post');
-        req.reply({ fixture: 'post.json' });
+        req.reply({ fixture });
       }
+    }).as(fixture);
+  }
 
+  interceptDeleteRequest(fixtureType: 'success' | 'missing' = 'success') {
+    const fixture = {
+      success: 'delete-post.json',
+      missing: 'delete-post-missing.json'
+    }[fixtureType];
+
+    cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'DeletePost')) {
         aliasQuery(req, 'DeletePost');
-        req.reply({ fixture: 'delete-post.json' });
+        req.reply({ fixture });
       }
-    }).as('GraphQL');
+    }).as(fixture);
   }
 
   visit() {

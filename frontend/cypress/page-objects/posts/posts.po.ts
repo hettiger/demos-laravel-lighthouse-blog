@@ -26,12 +26,13 @@ export class PostsPO {
   }
 
   interceptRequests() {
+    const fixture = 'posts.json';
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'Posts')) {
         aliasQuery(req, 'Posts');
-        req.reply({ fixture: 'posts.json' });
+        req.reply({ fixture });
       }
-    }).as('GraphQL');
+    }).as(fixture);
   }
 
   visit() {

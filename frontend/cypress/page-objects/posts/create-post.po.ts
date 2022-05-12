@@ -20,19 +20,17 @@ export class CreatePostPO extends PostFormPO {
   }
 
   interceptActionRequest(fixtureType: PostFormFixtureType = 'success', delay = 0) {
-    let fixture: string;
-    switch (fixtureType) {
-      case 'success': fixture = 'create-post.json'; break;
-      case 'error': fixture = 'create-post-error.json'; break;
-      default: throw new Error('Unexpected fixtureType');
-    }
+    const fixture = {
+      success: 'create-post.json',
+      error: 'create-post-error.json',
+    }[fixtureType];
 
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'CreatePost')) {
         aliasQuery(req, 'CreatePost');
         req.reply({ fixture, delay });
       }
-    }).as('GraphQL');
+    }).as(fixture);
   }
 
   backNavigationTarget(): { shouldBeActive: () => void } {

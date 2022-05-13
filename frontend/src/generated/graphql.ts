@@ -232,6 +232,8 @@ export type UserPaginator = {
   paginatorInfo: PaginatorInfo;
 };
 
+export type PaginatorInfoFragment = { __typename?: 'PaginatorInfo', total: number, perPage: number, currentPage: number };
+
 export type CreatePostMutationVariables = Exact<{
   title: Scalars['String'];
   body: Scalars['String'];
@@ -256,7 +258,10 @@ export type PostQueryVariables = Exact<{
 
 export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } } | null };
 
-export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type PostsQueryVariables = Exact<{
+  first: Scalars['Int'];
+  page: Scalars['Int'];
+}>;
 
 
 export type PostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostPaginator', data: Array<{ __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } }>, paginatorInfo: { __typename?: 'PaginatorInfo', total: number, perPage: number, currentPage: number } } | null };
@@ -270,6 +275,13 @@ export type UpdatePostMutationVariables = Exact<{
 
 export type UpdatePostMutation = { __typename?: 'Mutation', updatePost?: { __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } } | null };
 
+export const PaginatorInfoFragmentDoc = gql`
+    fragment PaginatorInfo on PaginatorInfo {
+  total
+  perPage
+  currentPage
+}
+    `;
 export const PostFragmentDoc = gql`
     fragment Post on Post {
   id
@@ -338,19 +350,18 @@ export const PostDocument = gql`
     }
   }
 export const PostsDocument = gql`
-    query Posts {
-  posts(first: 5) {
+    query Posts($first: Int!, $page: Int!) {
+  posts(first: $first, page: $page) {
     data {
       ...Post
     }
     paginatorInfo {
-      total
-      perPage
-      currentPage
+      ...PaginatorInfo
     }
   }
 }
-    ${PostFragmentDoc}`;
+    ${PostFragmentDoc}
+${PaginatorInfoFragmentDoc}`;
 
   @Injectable({
     providedIn: 'root'

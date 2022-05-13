@@ -1,5 +1,5 @@
-query Posts {
-  posts(first: 5) {
+query Posts($first: Int!, $page: Int!) {
+  posts(first: $first, page: $page) {
     data {
       ...Post
     }

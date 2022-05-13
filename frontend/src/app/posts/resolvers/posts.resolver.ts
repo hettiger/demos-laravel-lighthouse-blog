@@ -14,6 +14,9 @@ export class PostsResolver implements Resolve<Posts> {
   ) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Posts> {
-    return this.postsService.posts().pipe(take(1));
+    return this.postsService.posts(
+      +(route.queryParams['page'] || 1),
+      +(route.queryParams['perPage'] || 5),
+    ).pipe(take(1));
   }
 }

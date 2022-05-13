@@ -27,8 +27,8 @@ export class PostsService {
     private deletePostGQL: DeletePostGQL,
   ) { }
 
-  posts(): Observable<Posts> {
-    return this.postsGQL.watch().valueChanges.pipe(
+  posts(page = 1, perPage = 5): Observable<Posts> {
+    return this.postsGQL.watch({ first: perPage, page }).valueChanges.pipe(
       map(result => ({
         data: result.data.posts?.data.map(this.transform) ?? [],
         paginatorInfo: paginatorInfo(result.data.posts?.paginatorInfo)

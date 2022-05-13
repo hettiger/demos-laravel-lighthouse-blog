@@ -68,6 +68,12 @@
           "__typename": "Post"
         }
       ],
+      "paginatorInfo": {
+        "total": 1337,
+        "perPage": 133,
+        "currentPage": 7,
+        "__typename": "PaginatorInfo"
+      },
       "__typename": "PostPaginator"
     }
   }

@@ -28,5 +28,27 @@ describe('Posts Page', () => {
     posts.visit();
     posts.createPostButton.click();
     createPost.shouldBeActive();
-  })
+  });
+
+  describe('pagination', () => {
+    it('redirects to posts without query params on invalid pagination params', () => {
+      posts.visit('?page=-1');
+      posts.shouldBeActive();
+
+      posts.visit('?perPage=0');
+      posts.shouldBeActive();
+    });
+
+    it('visits the page on valid pagination params', () => {
+      posts.visit('?page=2&perPage=2');
+      posts.shouldBeActive('?page=2&perPage=2');
+    });
+
+    it('displays the correct paginator info', () => {
+      posts.visit();
+
+      posts.page.contains('133').should('be.visible');
+      posts.page.contains('799 – 931 of 1337').should('be.visible');
+    });
+  });
 });

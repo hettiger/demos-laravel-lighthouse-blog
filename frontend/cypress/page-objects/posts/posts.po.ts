@@ -35,13 +35,13 @@ export class PostsPO {
     }).as(fixture);
   }
 
-  visit() {
-    cy.visit('/posts');
+  visit(query = '') {
+    cy.visit(`/posts${query}`);
     this.shouldBeActive();
   }
 
-  shouldBeActive() {
-    cy.url().should('match', /\/posts$/);
+  shouldBeActive(query = '') {
+    cy.url().should('match', /\/posts(\?.+)?$/).should('contain', query);
     this.page.should('be.visible');
   }
 }

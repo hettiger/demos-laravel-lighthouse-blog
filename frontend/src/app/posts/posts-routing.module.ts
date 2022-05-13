@@ -12,7 +12,8 @@ const routes: Routes = [
     path: '',
     pathMatch: 'full',
     component: PostsComponent,
-    resolve: { posts: PostsResolver }
+    resolve: { posts: PostsResolver },
+    runGuardsAndResolvers: 'paramsOrQueryParamsChange',
   },
   {
     path: 'create',

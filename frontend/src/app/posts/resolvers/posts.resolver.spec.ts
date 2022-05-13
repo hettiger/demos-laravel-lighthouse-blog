@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { ApolloTestingModule } from 'apollo-angular/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { PostsResolver } from './posts.resolver';
 
@@ -8,7 +9,7 @@ describe('PostsResolver', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ ApolloTestingModule ],
+      imports: [ ApolloTestingModule, RouterTestingModule ],
     });
     resolver = TestBed.inject(PostsResolver);
   });

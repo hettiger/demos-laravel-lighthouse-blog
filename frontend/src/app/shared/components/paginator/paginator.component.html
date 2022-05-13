@@ -3,4 +3,5 @@
   [pageSizeOptions]="[5, 10, 20]"
   [pageIndex]="paginatorInfo.pageIndex"
   [length]="paginatorInfo.length"
+  (page)="navigate($event)">
 ></mat-paginator>

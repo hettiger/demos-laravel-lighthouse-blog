@@ -5,7 +5,9 @@
     <small>{{ post.created_at | date }}, {{ post.user.name }}</small>
   </p>
   <app-actions>
-    <button mat-raised-button color="warn" (click)="destroy(post)">Delete Post</button>
+    <button mat-raised-button color="warn" (click)="destroy(post)" [disabled]="isLoading">
+      <app-spinning-button-label [isSpinning]="isLoading">Delete Post</app-spinning-button-label>
+    </button>
     <button mat-raised-button color="primary" [routerLink]="['./edit']">Edit Post</button>
   </app-actions>
 </ng-container>

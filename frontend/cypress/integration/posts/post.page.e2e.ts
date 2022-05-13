@@ -38,6 +38,16 @@ describe('Post Page', () => {
 
       posts.shouldBeActive();
     });
+
+    it('displays a loading spinner when loading', () => {
+      post.interceptDeleteRequest('success', 1_000);
+      post.visit();
+
+      post.deletePostButton.click();
+
+      post.deletePostButton.should('be.disabled');
+      post.actions.find('mat-progress-spinner').should('be.visible');
+    });
   });
 
   describe('Edit Button', () => {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, pluck } from 'rxjs';
+import { finalize, Observable, pluck } from 'rxjs';
 import { Post } from '../../entities';
 import { PostsService } from '../../services/posts.service';
 
@@ -13,6 +13,8 @@ export class PostComponent implements OnInit {
 
   post$: Observable<Post>;
 
+  isLoading = false;
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -24,7 +26,13 @@ export class PostComponent implements OnInit {
   ngOnInit(): void { }
 
   destroy(post: Post) {
-    this.postsService.destroy(post.id).subscribe(
+    this.isLoading = true;
+
+    this.postsService.destroy(
+      post.id
+    ).pipe(
+      finalize(() => this.isLoading = false),
+    ).subscribe(
       () => this.router.navigate(['..'], { relativeTo: this.activatedRoute }),
     );
   }

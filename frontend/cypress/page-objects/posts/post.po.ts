@@ -51,7 +51,7 @@ export class PostPO {
     }).as(fixture);
   }
 
-  interceptDeleteRequest(fixtureType: 'success' | 'missing' = 'success') {
+  interceptDeleteRequest(fixtureType: 'success' | 'missing' = 'success', delay = 0) {
     const fixture = {
       success: 'delete-post.json',
       missing: 'delete-post-missing.json'
@@ -60,7 +60,7 @@ export class PostPO {
     cy.intercept('POST', environment.backendURL, req => {
       if (hasOperationName(req, 'DeletePost')) {
         aliasQuery(req, 'DeletePost');
-        req.reply({ fixture });
+        req.reply({ fixture, delay });
       }
     }).as(fixture);
   }

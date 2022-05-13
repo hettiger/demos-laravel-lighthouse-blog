@@ -67,6 +67,7 @@ describe('Post Form Page', () => {
 
           postForm.actionButton.click();
 
+          postForm.actionButton.should('be.disabled');
           postForm.actions.find('mat-progress-spinner').should('be.visible');
         });
       });

@@ -4,7 +4,7 @@ import { filterOptionals, mapRequired, transformLaravelValidationErrors } from '
 import { LaravelValidationError } from './errors/laravel-validation.error';
 import { ApolloError } from '@apollo/client/core';
 import { GraphQLError } from 'graphql';
-import { MessageBag } from './shared/entities';
+import { MessageBag } from './entities';
 
 describe('Operators', () => {
   let testScheduler: TestScheduler;

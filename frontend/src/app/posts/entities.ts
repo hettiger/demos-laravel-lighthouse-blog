@@ -1,3 +1,5 @@
+import { PaginatorInfo } from '../entities';
+
 export interface PostResource {
   id: string;
   user: {
@@ -13,4 +15,9 @@ export interface PostResource {
 export interface Post extends Omit<PostResource, 'created_at' | 'updated_at'> {
   created_at: Date;
   updated_at: Date;
+}
+
+export interface Posts {
+  data: Post[];
+  paginatorInfo: PaginatorInfo;
 }

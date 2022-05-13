@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, finalize, Observable, pluck } from 'rxjs';
 
-import { MessageBag } from '../../../shared/entities';
+import { MessageBag } from '../../../entities';
 import { fadeAnimation } from '../../../animations';
 import { LaravelValidationError } from '../../../errors/laravel-validation.error';
 import { Post } from '../../entities';

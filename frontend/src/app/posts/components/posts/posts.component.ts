@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, pluck } from 'rxjs';
-import { Post } from '../../entities';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, pluck } from 'rxjs';
+
+import { Post } from '../../entities';
+import { PaginatorInfo } from '../../../entities';
 
 @Component({
   selector: 'app-posts',
@@ -11,9 +13,11 @@ import { ActivatedRoute } from '@angular/router';
 export class PostsComponent implements OnInit {
 
   posts$: Observable<Post[]>;
+  paginatorInfo$: Observable<PaginatorInfo>;
 
   constructor(activatedRoute: ActivatedRoute) {
-    this.posts$ = activatedRoute.data.pipe(pluck('posts'));
+    this.posts$ = activatedRoute.data.pipe(pluck('posts', 'data'));
+    this.paginatorInfo$ = activatedRoute.data.pipe(pluck('posts', 'paginatorInfo'));
   }
 
   ngOnInit(): void { }

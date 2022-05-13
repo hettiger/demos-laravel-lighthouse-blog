@@ -8,8 +8,9 @@ import {
   PostsGQL,
   UpdatePostGQL,
 } from '../../../generated/graphql';
-import { Post, PostResource } from '../entities';
+import { Post, PostResource, Posts } from '../entities';
 import { mapRequired, transformLaravelValidationErrors } from '../../operators';
+import { paginatorInfo } from '../../utilities';
 
 const POSTS_QUERY_FIELD = 'posts';
 
@@ -26,9 +27,12 @@ export class PostsService {
     private deletePostGQL: DeletePostGQL,
   ) { }
 
-  posts(): Observable<Post[]> {
+  posts(): Observable<Posts> {
     return this.postsGQL.watch().valueChanges.pipe(
-      map(result => result.data.posts?.data.map(this.transform) ?? [])
+      map(result => ({
+        data: result.data.posts?.data.map(this.transform) ?? [],
+        paginatorInfo: paginatorInfo(result.data.posts?.paginatorInfo)
+      })),
     );
   }
 

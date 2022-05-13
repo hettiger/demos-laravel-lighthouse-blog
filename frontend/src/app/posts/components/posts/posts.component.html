@@ -6,6 +6,12 @@
     </a>
   </li>
 </ul>
+
+<app-paginator
+  *ngIf="paginatorInfo$ | async as paginatorInfo"
+  [paginatorInfo]="paginatorInfo"
+></app-paginator>
+
 <app-actions>
   <a mat-raised-button color="primary" [routerLink]="['create']">Create Post</a>
 </app-actions>

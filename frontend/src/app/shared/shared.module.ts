@@ -13,12 +13,15 @@ import { FormsModule } from '@angular/forms';
 import { BackButtonDirective } from './directives/back-button.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SpinningButtonLabelComponent } from './components/spinning-button-label/spinning-button-label.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginatorComponent } from './components/paginator/paginator.component';
 
 const sharedDeclarations = [
   MainNavComponent,
   ActionsComponent,
   BackButtonDirective,
   SpinningButtonLabelComponent,
+  PaginatorComponent,
 ];
 
 const sharedModules = [
@@ -31,6 +34,7 @@ const sharedModules = [
   MatFormFieldModule,
   MatInputModule,
   MatProgressSpinnerModule,
+  MatPaginatorModule,
 ];
 
 @NgModule({

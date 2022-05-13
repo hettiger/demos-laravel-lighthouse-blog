@@ -1,0 +1,13 @@
+::ng-deep app-paginator {
+  .mat-paginator-container {
+    justify-content: flex-start;
+  }
+
+  .mat-paginator-page-size-label {
+    margin-left: 0;
+  }
+
+  .mat-paginator-container {
+    padding-left: 0;
+  }
+}

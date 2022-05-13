@@ -3,5 +3,8 @@ query Posts {
     data {
       ...Post
     }
+    paginatorInfo {
+      ...PaginatorInfo
+    }
   }
 }

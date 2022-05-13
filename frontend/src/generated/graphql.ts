@@ -259,7 +259,7 @@ export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id
 export type PostsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostPaginator', data: Array<{ __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } }> } | null };
+export type PostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostPaginator', data: Array<{ __typename?: 'Post', id: string, title: string, body: string, created_at: any, updated_at: any, user: { __typename?: 'User', id: string, name: string } }>, paginatorInfo: { __typename?: 'PaginatorInfo', total: number, perPage: number, currentPage: number } } | null };
 
 export type UpdatePostMutationVariables = Exact<{
   id: Scalars['ID'];
@@ -342,6 +342,11 @@ export const PostsDocument = gql`
   posts(first: 5) {
     data {
       ...Post
+    }
+    paginatorInfo {
+      total
+      perPage
+      currentPage
     }
   }
 }

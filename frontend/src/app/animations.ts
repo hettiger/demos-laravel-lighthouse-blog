@@ -1,4 +1,4 @@
-import { animate, animation, query, style, transition, trigger, useAnimation } from '@angular/animations';
+import { animate, animation, group, query, style, transition, trigger, useAnimation } from '@angular/animations';
 
 export function durationParams(duration: string) {
   return { duration };
@@ -38,4 +38,18 @@ export const fadeRoutesAnimation = animation( [
   query(':enter', [
     useAnimation(fadeInAnimation, { params: durationParams('{{ duration }}')}),
   ], { optional: true }),
+]);
+
+export const listAnimation = animation([
+  group([
+    query(':leave', [
+      animate('{{ duration }}', style({ opacity: '0' })),
+      animate('{{ duration }}', style({ height: '0' })),
+    ], { optional: true }),
+    query(':enter', [
+      style({ height: 0, opacity: '0' }),
+      animate('{{ duration }} {{ duration }}', style({ height: '*' })),
+      animate('{{ duration }}', style({ opacity: '1' })),
+    ], { optional: true }),
+  ]),
 ]);

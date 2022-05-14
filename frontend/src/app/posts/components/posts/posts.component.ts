@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, pluck } from 'rxjs';
 
@@ -14,6 +14,8 @@ export class PostsComponent implements OnInit {
 
   posts$: Observable<Post[]>;
   paginatorInfo$: Observable<PaginatorInfo>;
+
+  trackByPost: TrackByFunction<Post> = (index, post) => post.id;
 
   constructor(activatedRoute: ActivatedRoute) {
     this.posts$ = activatedRoute.data.pipe(pluck('posts', 'data'));

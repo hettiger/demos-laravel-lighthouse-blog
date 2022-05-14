@@ -7,7 +7,12 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "ng:build:prod": "cd resources/angular && npm run build && cd - && cp public/angular/index.html resources/views/angular.blade.php",
+        "ng:build:dev": "cd resources/angular && npm run build -- --configuration development && cd - && cp public/angular/index.html resources/views/angular.blade.php",
+        "ng:watch": "npm run ng:build:dev && cd resources/angular && npm run build -- --configuration development --watch",
+        "ng:serve": "cd resources/angular && ng serve --open",
+        "generate:graphql": "cd resources/angular && npm run generate:graphql"
     },
     "devDependencies": {
         "axios": "^0.25",

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendURL: 'http://laravel-lighthouse-blog-backend.test/graphql'
+  backendURL: 'http://laravel-lighthouse-blog.test/graphql'
 };

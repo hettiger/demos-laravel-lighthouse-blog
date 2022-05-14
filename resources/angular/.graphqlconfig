@@ -4,7 +4,7 @@
   "extensions": {
     "endpoints": {
       "backend": {
-        "url": "http://laravel-lighthouse-blog-backend.test/graphql",
+        "url": "http://laravel-lighthouse-blog.test/graphql",
         "headers": {
           "user-agent": "JS GraphQL"
         },

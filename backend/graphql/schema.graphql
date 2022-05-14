@@ -15,21 +15,13 @@ type Query {
     users(
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
-    ): [User!]! @paginate(defaultCount: 10) @guard
-
-    me: User @guard @auth
+    ): [User!]! @paginate(defaultCount: 10)
 
     posts: [Post!]! @paginate(defaultCount: 10) @orderBy(column: "created_at", direction: DESC)
     post(id: ID @eq): Post @find
 }
 
 type Mutation {
-    login(
-        email: String!
-        password: String!
-        device_name: String!
-    ): AccessToken! @field(resolver: "App\\GraphQL\\Mutations\\LoginResolver")
-
     createPost(
         user_id: ID!
         title: String! @rules(apply: ["required", "min:3"])
@@ -45,10 +37,6 @@ type Mutation {
     deletePost(
         id: ID!
     ): Post @delete
-}
-
-type AccessToken {
-    token: String!
 }
 
 "Account of a person who utilizes this application."

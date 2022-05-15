@@ -45,9 +45,7 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
             "@php artisan filament:upgrade",
-            "@php artisan ide-helper:generate",
-            "@php artisan ide-helper:meta",
-            "@php artisan lighthouse:ide-helper"
+            "@update-helper-files"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -56,7 +54,11 @@
             "@php artisan key:generate --ansi"
         ],
         "update-helper-files": [
-            "php artisan ide-helper:generate && php artisan ide-helper:meta && php artisan ide-helper:models -M && php artisan lighthouse:ide-helper"
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta",
+            "@php artisan ide-helper:eloquent",
+            "@php artisan ide-helper:models -M",
+            "@php artisan lighthouse:ide-helper"
         ]
     },
     "extra": {

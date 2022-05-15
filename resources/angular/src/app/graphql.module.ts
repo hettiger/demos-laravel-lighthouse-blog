@@ -1,19 +1,43 @@
 import { NgModule } from '@angular/core';
 import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
-import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { HttpLink } from 'apollo-angular/http';
 import { environment } from '../environments/environment';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { onError } from '@apollo/client/link/error';
 
 const uri = environment.backendURL;
-export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
+export function createApollo(
+  httpLink: HttpLink,
+  httpClient: HttpClient,
+  httpXsrfTokenExtractor: HttpXsrfTokenExtractor
+): ApolloClientOptions<any> {
+  const addCsrfToken = new ApolloLink((operation, forward) => {
+    const token = httpXsrfTokenExtractor.getToken();
+
+    if (token) {
+      operation.setContext({
+        headers: new HttpHeaders().set('X-XSRF-TOKEN', token),
+      });
+    }
+
+    return forward(operation);
+  });
+
+  const updateInvalidCsrfToken = onError(({ networkError }) => {
+    if (!(networkError instanceof HttpErrorResponse)) return;
+    switch (networkError.status) {
+      case 419: {
+        httpClient.get('/sanctum/csrf-cookie').subscribe();
+        break;
+      }
+    }
+  });
+
   return {
-    link: httpLink.create({
-      uri,
-      headers: new HttpHeaders({
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') ?? '',
-      }),
-    }),
+    link: addCsrfToken
+      .concat(updateInvalidCsrfToken)
+      .concat(httpLink.create({ uri })),
     cache: new InMemoryCache(),
   };
 }
@@ -24,7 +48,7 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     {
       provide: APOLLO_OPTIONS,
       useFactory: createApollo,
-      deps: [HttpLink],
+      deps: [HttpLink, HttpClient, HttpXsrfTokenExtractor],
     },
   ],
 })

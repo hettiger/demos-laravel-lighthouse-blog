@@ -12,7 +12,7 @@ export class AuthErrorHandler implements ErrorHandler {
   handleError(error: any): void {
     if (!this.canHandle(error)) { return; }
 
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   private canHandle(error: any): error is ApolloError {

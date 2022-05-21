@@ -1,4 +1,4 @@
-import { ErrorHandler, Inject, Injectable } from '@angular/core';
+import { ErrorHandler, Inject, Injectable, NgZone } from '@angular/core';
 import { isUncaughtPromiseError } from '../predicates';
 import { ERROR_HANDLERS } from './error-handlers';
 
@@ -8,11 +8,14 @@ import { ERROR_HANDLERS } from './error-handlers';
 export class GlobalErrorHandler implements ErrorHandler {
   constructor(
     @Inject(ERROR_HANDLERS) private errorHandlers: ErrorHandler[],
+    private ngZone: NgZone,
   ) {}
 
   handleError(error: unknown): void {
     if (isUncaughtPromiseError(error)) {
-      this.handleError(error.rejection);
+      this.ngZone.run(() => {
+        this.handleError(error.rejection);
+      });
       return;
     }
 

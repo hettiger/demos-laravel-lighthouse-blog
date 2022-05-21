@@ -40,7 +40,7 @@ describe('AuthErrorHandler', () => {
 
     sut.handleError(error);
 
-    expect(navigateSpy).toHaveBeenCalledWith(['/login']);
+    expect(navigateSpy).toHaveBeenCalledWith(['/auth/login']);
   });
 
   it('ignores other errors', () => {
@@ -48,6 +48,6 @@ describe('AuthErrorHandler', () => {
 
     sut.handleError(error);
 
-    expect(navigateSpy).not.toHaveBeenCalledWith(['/login']);
+    expect(navigateSpy).not.toHaveBeenCalledWith(['/auth/login']);
   });
 });

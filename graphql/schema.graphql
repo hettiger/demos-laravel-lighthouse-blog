@@ -26,17 +26,17 @@ type Mutation {
         user_id: ID!
         title: String! @rules(apply: ["required", "min:3"])
         body: String! @rules(apply: ["required", "min:3"])
-    ): Post @create
+    ): Post @create @guard
 
     updatePost(
         id: ID!
         title: String! @rules(apply: ["required", "min:3"])
         body: String! @rules(apply: ["required", "min:3"])
-    ): Post @update
+    ): Post @update @guard
 
     deletePost(
         id: ID!
-    ): Post @delete
+    ): Post @delete @guard
 }
 
 "Account of a person who utilizes this application."

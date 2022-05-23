@@ -1,3 +1,5 @@
+#import sanctum.graphql
+
 scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
 
 "Indicates what fields are available at the top level of a query operation."

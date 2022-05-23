@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 /**
  * @mixin IdeHelperUser
  */
-class User extends Authenticatable
+class User extends Authenticatable implements \Laravel\Sanctum\Contracts\HasApiTokens
 {
     use HasApiTokens, HasFactory, Notifiable;
 

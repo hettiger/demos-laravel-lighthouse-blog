@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MessageBag } from '../../../entities';
+import { AuthService } from '../../services/auth.service';
+import { finalize } from 'rxjs';
+import { LaravelValidationError } from '../../../errors/laravel-validation.error';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -7,10 +11,13 @@ import { MessageBag } from '../../../entities';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  serverErrors: MessageBag = {};
   isLoading = false;
+  serverErrors: MessageBag = {};
 
-  constructor() { }
+  constructor(
+    private authService: AuthService,
+    private location: Location
+  ) { }
 
   ngOnInit(): void {
   }
@@ -18,10 +25,20 @@ export class LoginComponent implements OnInit {
   submit(credentials: any) {
     this.isLoading = true;
 
-    try {
-      console.log(credentials);
-    } finally {
-      this.isLoading = false;
-    }
+    this.authService.login(credentials).pipe(
+      finalize(() => this.isLoading = false),
+    ).subscribe({
+      next: token => {
+        localStorage.setItem('token', token);
+        this.location.back();
+      },
+      error: (error: unknown) => {
+        if (error instanceof LaravelValidationError) {
+          this.serverErrors = error.messageBag;
+        } else {
+          throw error;
+        }
+      },
+    });
   }
 }

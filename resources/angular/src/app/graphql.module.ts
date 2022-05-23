@@ -14,10 +14,24 @@ export function createApollo(
 ): ApolloClientOptions<any> {
   const addCsrfToken = new ApolloLink((operation, forward) => {
     const token = httpXsrfTokenExtractor.getToken();
+    const headers = operation.getContext()['headers'] ?? new HttpHeaders();
 
     if (token) {
       operation.setContext({
-        headers: new HttpHeaders().set('X-XSRF-TOKEN', token),
+        headers: headers.set('X-XSRF-TOKEN', token),
+      });
+    }
+
+    return forward(operation);
+  });
+
+  const addBearerToken = new ApolloLink((operation, forward) => {
+    const token = localStorage.getItem('token');
+    const headers = operation.getContext()['headers'] ?? new HttpHeaders();
+
+    if (token) {
+      operation.setContext({
+        headers: headers.set('Authorization', `Bearer ${token}`),
       });
     }
 
@@ -37,6 +51,7 @@ export function createApollo(
   return {
     link: addCsrfToken
       .concat(updateInvalidCsrfToken)
+      .concat(addBearerToken)
       .concat(httpLink.create({ uri })),
     cache: new InMemoryCache(),
   };

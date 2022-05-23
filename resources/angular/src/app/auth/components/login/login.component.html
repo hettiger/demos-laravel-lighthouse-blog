@@ -3,8 +3,8 @@
   <mat-form-field class="form__field">
     <mat-label>E-Mail</mat-label>
     <input #email="ngModel" matInput ngModel name="email" required autocomplete="username">
-    <mat-hint *ngIf="email.pristine && serverErrors['email']" @fade>
-      <span class="mat-error">{{ serverErrors['email'][0] }}</span>
+    <mat-hint *ngIf="email.pristine && serverErrors['input.email']" @fade>
+      <span class="mat-error">{{ serverErrors['input.email'][0] }}</span>
     </mat-hint>
   </mat-form-field>
 
@@ -18,8 +18,8 @@
       type="password"
       autocomplete="current-password"
     >
-    <mat-hint *ngIf="password.pristine && serverErrors['password']" @fade>
-      <span class="mat-error">{{ serverErrors['password'][0] }}</span>
+    <mat-hint *ngIf="password.pristine && serverErrors['input.password']" @fade>
+      <span class="mat-error">{{ serverErrors['input.password'][0] }}</span>
     </mat-hint>
   </mat-form-field>
 

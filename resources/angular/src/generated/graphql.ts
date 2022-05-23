@@ -16,11 +16,66 @@ export type Scalars = {
   DateTimeTz: any;
 };
 
+export type AccessToken = {
+  __typename?: 'AccessToken';
+  token: Scalars['String'];
+};
+
+export type EmailVerificationResponse = {
+  __typename?: 'EmailVerificationResponse';
+  status: EmailVerificationStatus;
+};
+
+export enum EmailVerificationStatus {
+  /** VERIFIED */
+  Verified = 'VERIFIED'
+}
+
+export type ForgotPasswordInput = {
+  email: Scalars['String'];
+  reset_password_url?: InputMaybe<ResetPasswordUrlInput>;
+};
+
+export type ForgotPasswordResponse = {
+  __typename?: 'ForgotPasswordResponse';
+  message?: Maybe<Scalars['String']>;
+  status: ForgotPasswordStatus;
+};
+
+export enum ForgotPasswordStatus {
+  /** EMAIL_SENT */
+  EmailSent = 'EMAIL_SENT'
+}
+
+export type LoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+export type LogoutResponse = {
+  __typename?: 'LogoutResponse';
+  message: Scalars['String'];
+  status: LogoutStatus;
+};
+
+export enum LogoutStatus {
+  /** TOKEN_REVOKED */
+  TokenRevoked = 'TOKEN_REVOKED'
+}
+
 export type Mutation = {
   __typename?: 'Mutation';
   createPost?: Maybe<Post>;
   deletePost?: Maybe<Post>;
+  forgotPassword: ForgotPasswordResponse;
+  login: AccessToken;
+  logout: LogoutResponse;
+  register: RegisterResponse;
+  resendEmailVerification: ResendEmailVerificationResponse;
+  resetPassword: ResetPasswordResponse;
+  updatePassword: UpdatePasswordResponse;
   updatePost?: Maybe<Post>;
+  verifyEmail: EmailVerificationResponse;
 };
 
 
@@ -36,10 +91,45 @@ export type MutationDeletePostArgs = {
 };
 
 
+export type MutationForgotPasswordArgs = {
+  input: ForgotPasswordInput;
+};
+
+
+export type MutationLoginArgs = {
+  input?: InputMaybe<LoginInput>;
+};
+
+
+export type MutationRegisterArgs = {
+  input?: InputMaybe<RegisterInput>;
+};
+
+
+export type MutationResendEmailVerificationArgs = {
+  input: ResendEmailVerificationInput;
+};
+
+
+export type MutationResetPasswordArgs = {
+  input: ResetPasswordInput;
+};
+
+
+export type MutationUpdatePasswordArgs = {
+  input: UpdatePasswordInput;
+};
+
+
 export type MutationUpdatePostArgs = {
   body: Scalars['String'];
   id: Scalars['ID'];
   title: Scalars['String'];
+};
+
+
+export type MutationVerifyEmailArgs = {
+  input: VerifyEmailInput;
 };
 
 /** Allows ordering a list of records. */
@@ -170,6 +260,70 @@ export type QueryUsersArgs = {
   page?: InputMaybe<Scalars['Int']>;
 };
 
+export type RegisterInput = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  password_confirmation: Scalars['String'];
+  verification_url?: InputMaybe<VerificationUrlInput>;
+};
+
+export type RegisterResponse = {
+  __typename?: 'RegisterResponse';
+  status: RegisterStatus;
+  token?: Maybe<Scalars['String']>;
+};
+
+export enum RegisterStatus {
+  /** MUST_VERIFY_EMAIL */
+  MustVerifyEmail = 'MUST_VERIFY_EMAIL',
+  /** SUCCESS */
+  Success = 'SUCCESS'
+}
+
+export type ResendEmailVerificationInput = {
+  email: Scalars['String'];
+  verification_url?: InputMaybe<VerificationUrlInput>;
+};
+
+export type ResendEmailVerificationResponse = {
+  __typename?: 'ResendEmailVerificationResponse';
+  status: ResendEmailVerificationStatus;
+};
+
+export enum ResendEmailVerificationStatus {
+  /** EMAIL_SENT */
+  EmailSent = 'EMAIL_SENT'
+}
+
+export type ResetPasswordInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+  password_confirmation: Scalars['String'];
+  token: Scalars['String'];
+};
+
+export type ResetPasswordResponse = {
+  __typename?: 'ResetPasswordResponse';
+  message?: Maybe<Scalars['String']>;
+  status: ResetPasswordStatus;
+};
+
+export enum ResetPasswordStatus {
+  /** PASSWORD_RESET */
+  PasswordReset = 'PASSWORD_RESET'
+}
+
+/**
+ * The url used to reset the password.
+ * Use the `__EMAIL__` and `__TOKEN__` placeholders to inject the reset password email and token.
+ *
+ * e.g; `https://my-front-end.com?reset-password?email=__EMAIL__&token=__TOKEN__`
+ */
+export type ResetPasswordUrlInput = {
+  url: Scalars['String'];
+};
+
 /** Information about pagination using a simple paginator. */
 export type SimplePaginatorInfo = {
   __typename?: 'SimplePaginatorInfo';
@@ -205,6 +359,22 @@ export enum Trashed {
   Without = 'WITHOUT'
 }
 
+export type UpdatePasswordInput = {
+  current_password: Scalars['String'];
+  password: Scalars['String'];
+  password_confirmation: Scalars['String'];
+};
+
+export type UpdatePasswordResponse = {
+  __typename?: 'UpdatePasswordResponse';
+  status: UpdatePasswordStatus;
+};
+
+export enum UpdatePasswordStatus {
+  /** PASSWORD_UPDATED */
+  PasswordUpdated = 'PASSWORD_UPDATED'
+}
+
 /** Account of a person who utilizes this application. */
 export type User = {
   __typename?: 'User';
@@ -231,6 +401,36 @@ export type UserPaginator = {
   /** Pagination information about the list of items. */
   paginatorInfo: PaginatorInfo;
 };
+
+/**
+ * The url used to verify the email address.
+ * Use __ID__ and __HASH__ to inject values.
+ *
+ * e.g; `https://my-front-end.com/verify-email?id=__ID__&hash=__HASH__`
+ *
+ * If the API uses signed email verification urls
+ * you must also use __EXPIRES__ and __SIGNATURE__
+ *
+ * e.g; `https://my-front-end.com/verify-email?id=__ID__&hash=__HASH__&expires=__EXPIRES__&signature=__SIGNATURE__`
+ */
+export type VerificationUrlInput = {
+  url: Scalars['String'];
+};
+
+export type VerifyEmailInput = {
+  expires?: InputMaybe<Scalars['Int']>;
+  hash: Scalars['String'];
+  id: Scalars['ID'];
+  signature?: InputMaybe<Scalars['String']>;
+};
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AccessToken', token: string } };
 
 export type PaginatorInfoFragment = { __typename?: 'PaginatorInfo', total: number, perPage: number, currentPage: number };
 
@@ -295,6 +495,24 @@ export const PostFragmentDoc = gql`
   updated_at
 }
     `;
+export const LoginDocument = gql`
+    mutation Login($email: String!, $password: String!) {
+  login(input: {email: $email, password: $password}) {
+    token
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class LoginGQL extends Apollo.Mutation<LoginMutation, LoginMutationVariables> {
+    document = LoginDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
 export const CreatePostDocument = gql`
     mutation CreatePost($title: String!, $body: String!) {
   createPost(user_id: 1, title: $title, body: $body) {
